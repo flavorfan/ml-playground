@@ -1,4 +1,6 @@
 import tensorflow as tf
+import matplotlib.pyplot as plt
+
 
 class FullyConnectedAutoEncoder(tf.keras.Model):
     def __init__(self):
@@ -36,28 +38,22 @@ def loss(x, x_bar):
 
 def grad(model, inputs):
     with tf.GradientTape() as tape:
-        reconstruction, inputs_reshaped = model(inputs)
-        loss_value = loss(inputs_reshaped, reconstruction)
-    return loss_value, tape.gradient(loss_value, model.trainable_variables), inputs_reshaped, reconstruction
+        reconstruction = model(inputs)
+        loss_value = loss(inputs, reconstruction)
+    return loss_value, tape.gradient(loss_value, model.trainable_variables), inputs, reconstruction
 
 
 
-def test_fully_connected_autoencoder():
-
-    print(tf.__version__)
-    num_epochs = 5
-    batch_size = 128
-
+def test_eagermode_training(num_epochs = 5,batch_size = 128):
+    # num_epochs = 5
+    # batch_size = 128
     train_data, _ = load_dataset(batch_size)
-
     model = FullyConnectedAutoEncoder()
     optimizer = tf.optimizers.Adam(learning_rate=0.001)
 
-
-
     for epoch in range(num_epochs):
         print(f'Epoch {epoch+1}')
-        for step, x_batch in enumerate(train_data):
+        for step, (x_batch ,_)in enumerate(train_data):
             loss_value, grads, inputs_reshaped, reconstruction = grad(model, x_batch)
             optimizer.apply_gradients(zip(grads, model.trainable_variables))           
             if step % 200 == 0:
@@ -77,9 +73,7 @@ def load_dataset(batch_size):
 # validation_split=0.0, validation_data=None, shuffle=True, class_weight=None,
 # sample_weight=None, initial_epoch=0, steps_per_epoch=None, validation_steps=None)
 
-def test_graph_mode_training():
-    num_epochs = 50
-    batch_size = 128
+def test_graph_mode_training(num_epochs = 50,batch_size = 128):
 
     train_data, test_data = load_dataset(batch_size)
 
@@ -90,13 +84,51 @@ def test_graph_mode_training():
         loss = 'binary_crossentropy'
     )
 
-    ae.fit(train_data,
+    callbacks = [
+        tf.keras.callbacks.ModelCheckpoint(
+            filepath='checkpoints/FullyConnectedAutoEncoder_{epoch}',
+            # Path where to save the model
+            # The two parameters below mean that we will overwrite
+            # the current checkpoint if and only if
+            # the `val_loss` score has improved.
+            save_best_only=True,
+            monitor='val_loss',
+            verbose=1)
+    ]
+
+
+    history = ae.fit(train_data,
            # batch_size = 128,
            # steps_per_epoch=30,
            validation_data= test_data,
-           epochs = num_epochs)
+           epochs = num_epochs,
+           callbacks=callbacks)
+
+
+def plot_model_result(x_test,model, n):
+
+    plt.figure(figsize=(20, 4))
+    decoded_imgs = model.predict(x_test)
+
+    for i in range(n):
+        # display original
+        ax = plt.subplot(2, n, i + 1)
+        plt.imshow(x_test[i].reshape(28, 28))
+        plt.gray()
+        ax.get_xaxis().set_visible(False)
+        ax.get_yaxis().set_visible(False)
+
+        # display reconstruction
+        ax = plt.subplot(2, n, i + 1 + n)
+        plt.imshow(decoded_imgs[i].reshape(28, 28))
+        plt.gray()
+        ax.get_xaxis().set_visible(False)
+        ax.get_yaxis().set_visible(False)
+    plt.show()
+
 
 if __name__ == '__main__':
-    # test_fully_connected_autoencoder()
+    # test_eagermode_training()
 
-    test_graph_mode_training()
+    test_graph_mode_training(20)
+
