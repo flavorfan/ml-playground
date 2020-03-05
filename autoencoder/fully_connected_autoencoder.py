@@ -78,6 +78,9 @@ def test_graph_mode_training(num_epochs = 50,batch_size = 128):
     train_data, test_data = load_dataset(batch_size)
 
     ae = FullyConnectedAutoEncoder()
+    # plot the model not fit the plan, need to study
+    # tf.keras.utils.plot_model(ae, 'multi_input_and_output_model.png', show_shapes=True)
+
     ae.compile(
         optimizer = tf.optimizers.Adam(0.01),
         # loss ='categorical_crossentropy'
@@ -93,7 +96,8 @@ def test_graph_mode_training(num_epochs = 50,batch_size = 128):
             # the `val_loss` score has improved.
             save_best_only=True,
             monitor='val_loss',
-            verbose=1)
+            verbose=1),
+        tf.keras.callbacks.TensorBoard(log_dir='log')
     ]
 
 
@@ -130,5 +134,5 @@ def plot_model_result(x_test,model, n):
 if __name__ == '__main__':
     # test_eagermode_training()
 
-    test_graph_mode_training(20)
+    test_graph_mode_training(5)
 
