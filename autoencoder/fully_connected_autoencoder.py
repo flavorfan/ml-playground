@@ -48,7 +48,7 @@ def grad(model, inputs):
 def test_eagermode_training(num_epochs = 5,batch_size = 128):
     # num_epochs = 5
     # batch_size = 128
-    train_data, _ = load_dataset(batch_size)
+    train_data, _ = load_mnist_dataset(batch_size)
     model = FullyConnectedAutoEncoder()
     optimizer = tf.optimizers.Adam(learning_rate=0.001)
 
@@ -62,7 +62,7 @@ def test_eagermode_training(num_epochs = 5,batch_size = 128):
                                                         loss(inputs_reshaped, reconstruction).numpy()))
 
 
-def load_dataset(batch_size):
+def load_mnist_dataset(batch_size):
     (x_train, _), (x_test, _) = tf.keras.datasets.mnist.load_data()
     x_train = x_train.reshape(60000, 784).astype('float32') / 255.
     x_test = x_test.reshape(10000, 784).astype('float32') / 255.
@@ -76,7 +76,7 @@ def load_dataset(batch_size):
 
 def test_graph_mode_training(num_epochs = 50,batch_size = 128):
 
-    train_data, test_data = load_dataset(batch_size)
+    train_data, test_data = load_mnist_dataset(batch_size)
 
     ae = FullyConnectedAutoEncoder()
     # plot the model not fit the plan, need to study
@@ -110,15 +110,13 @@ def test_graph_mode_training(num_epochs = 50,batch_size = 128):
            callbacks=callbacks)
 
 
-def plot_model_result(x_test,model, n):
-
+def plot_model_result(input_imgs, decoded_imgs, n, savename=None):
     plt.figure(figsize=(20, 4))
-    decoded_imgs = model.predict(x_test)
 
     for i in range(n):
         # display original
         ax = plt.subplot(2, n, i + 1)
-        plt.imshow(x_test[i].reshape(28, 28))
+        plt.imshow(input_imgs[i].reshape(28, 28))
         plt.gray()
         ax.get_xaxis().set_visible(False)
         ax.get_yaxis().set_visible(False)
@@ -129,6 +127,8 @@ def plot_model_result(x_test,model, n):
         plt.gray()
         ax.get_xaxis().set_visible(False)
         ax.get_yaxis().set_visible(False)
+    if  savename:
+        plt.savefig(savename)
     plt.show()
 
 def load_latest_model():
@@ -138,12 +138,29 @@ def load_latest_model():
         # loss ='categorical_crossentropy'
         loss = 'binary_crossentropy'
     )
-    checkpoint_dir = './checkpoint'
+    checkpoint_dir = 'checkpoints'
     latest = tf.train.latest_checkpoint(checkpoint_dir)
-    model.load_weight(latest)
+    print(latest)
+    ae.load_weights(latest)
 
-    ae.summary()
+    # keral need to build to summary
+    # ae.build(input_shape=(28,28))
+    # ae.summary()
     return ae
+
+
+def test_fc_ae(plot_name=None):
+
+    (x_train, _), (x_test, _) = tf.keras.datasets.mnist.load_data()
+
+    # train_data, test_data = load_dataset(128)
+
+    # x_test = test_data[0]
+    ae = load_latest_model()
+    decoded_imgs = ae.predict(x_test)
+
+    ae.evaluate(x_test, x_test.reshape(-1,28 * 28))
+    plot_model_result(x_test, decoded_imgs, 10, plot_name)
 
 
 if __name__ == '__main__':
@@ -151,5 +168,8 @@ if __name__ == '__main__':
 
     # test_graph_mode_training(100)
 
-    load_model()
+
+    test_fc_ae('tmp/acae_1.png')
+
+    # ae.eva
 

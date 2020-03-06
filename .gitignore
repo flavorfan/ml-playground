@@ -1,5 +1,7 @@
 /.idea/
-/.autoencoder/checkpoints/
-/.autoencoder/log/
-/.autoencoder/tf_ckpts/
+/autoencoder/checkpoints/
+/autoencoder/log/
+/autoencoder/tf_ckpts/
+/autoencoder/tmp/
 
+*.pyc
