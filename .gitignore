@@ -1,3 +1,5 @@
 /.idea/
 /.autoencoder/checkpoints/
 /.autoencoder/log/
+/.autoencoder/tf_ckpts/
+

@@ -27,6 +27,7 @@ class FullyConnectedAutoEncoder(tf.keras.Model):
         x = self.dense5(x)
         x = self.dense_final(x)
         return x
+    
 
 
 ## eager mode train
@@ -130,9 +131,25 @@ def plot_model_result(x_test,model, n):
         ax.get_yaxis().set_visible(False)
     plt.show()
 
+def load_latest_model():
+    ae = FullyConnectedAutoEncoder()
+    ae.compile(
+        optimizer = tf.optimizers.Adam(0.01),
+        # loss ='categorical_crossentropy'
+        loss = 'binary_crossentropy'
+    )
+    checkpoint_dir = './checkpoint'
+    latest = tf.train.latest_checkpoint(checkpoint_dir)
+    model.load_weight(latest)
+
+    ae.summary()
+    return ae
+
 
 if __name__ == '__main__':
     # test_eagermode_training()
 
-    test_graph_mode_training(5)
+    # test_graph_mode_training(100)
+
+    load_model()
 
