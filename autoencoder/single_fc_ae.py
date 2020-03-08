@@ -97,10 +97,94 @@ def test_fc_ae(plot_name=None):
     ae.evaluate(x_test.reshape(-1, 28* 28), x_test.reshape(-1,28 * 28))
     plot_model_result(x_test, decoded_imgs, 10, plot_name)
 
+
+
+# test new loss functin: categorical_crossentropy
+def test_fc_ae_2(num_epochs = 50, plot_name=None):
+
+    # train
+    ae = SingleFullyConnectedAutoencoder([200, 32, 784])
+    ae.compile(optimizer=tf.optimizers.Adam(0.01),
+               loss='categorical_crossentropy')
+
+    callbacks = [
+        tf.keras.callbacks.ModelCheckpoint(
+            filepath='checkpoints/test_fc_ae_2/single_fcae_{epoch}',
+            save_best_only=True,
+            monitor='val_loss',
+            verbose=1),
+        tf.keras.callbacks.TensorBoard(log_dir='log')
+    ]
+    train_data, test_data = load_mnist_dataset(128)
+    history = ae.fit(train_data,
+                     validation_data=test_data,
+                     epochs=num_epochs,
+                     callbacks=callbacks)
+
+
+    # plot histor
+    plot_loss(history,"tmp/train_loss_with_categorical_crossentropy.png")
+
+
+    (x_train, _), (x_test, _) = tf.keras.datasets.mnist.load_data()
+
+    # ae = load_latest_model()
+    decoded_imgs = ae.predict(x_test.reshape(-1, 28 * 28))
+
+    ae.evaluate(x_test.reshape(-1, 28* 28), x_test.reshape(-1,28 * 28))
+
+    plot_name = 'tmp/evaluate_result_with_categorical_crossentropy.png'
+    plot_model_result(x_test, decoded_imgs, 10, plot_name)
+
+
+def test_fc_ae_3(num_epochs = 50):
+
+    # train
+    ae = SingleFullyConnectedAutoencoder([200, 32, 784])
+
+    # loss = tf.reduce_mean(tf.squared_difference(x,out))
+    ae.compile(optimizer=tf.optimizers.Adam(0.01),
+               # loss='categorical_crossentropy'
+               loss = 'mse'
+               )
+
+    callbacks = [
+        tf.keras.callbacks.ModelCheckpoint(
+            filepath='checkpoints/test_fc_ae_3/single_fcae_{epoch}',
+            save_best_only=True,
+            monitor='val_loss',
+            verbose=1),
+        tf.keras.callbacks.TensorBoard(log_dir='log')
+    ]
+    train_data, test_data = load_mnist_dataset(128)
+    history = ae.fit(train_data,
+                     validation_data=test_data,
+                     epochs=num_epochs,
+                     callbacks=callbacks)
+
+
+    # plot histor
+    plot_loss(history,"tmp/train_loss_with_mse.png")
+
+
+    (x_train, _), (x_test, _) = tf.keras.datasets.mnist.load_data()
+
+    # ae = load_latest_model()
+    decoded_imgs = ae.predict(x_test.reshape(-1, 28 * 28))
+
+    ae.evaluate(x_test.reshape(-1, 28* 28), x_test.reshape(-1,28 * 28))
+
+    plot_name = 'tmp/evaluate_result_with_mse.png'
+    plot_model_result(x_test, decoded_imgs, 10, plot_name)
+
+
 if __name__ == '__main__':
     # train_single_fcae(50)
-    test_fc_ae('tmp/signle_fcae_200_32_784_.png')
+    # test_fc_ae('tmp/signle_fcae_200_32_784_.png')
 
+    # test_fc_ae_2(50)
+
+    test_fc_ae_3(50)
 
 
 

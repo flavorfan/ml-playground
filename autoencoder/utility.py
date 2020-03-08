@@ -32,7 +32,7 @@ def plot_model_result(input_imgs, decoded_imgs, n, savename=None):
         plt.savefig(savename)
     plt.show()
 
-def plot_loss(history):
+def plot_loss(history, savename=None):
     # Get training and test loss histories
     training_loss = history.history['loss']
     test_loss = history.history['val_loss']
@@ -46,4 +46,8 @@ def plot_loss(history):
     plt.legend(['Training Loss', 'Test Loss'])
     plt.xlabel('Epoch')
     plt.ylabel('Loss')
+    if  savename:
+        plt.savefig(savename)
+
     plt.show();
+
