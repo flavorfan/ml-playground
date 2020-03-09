@@ -39,6 +39,8 @@ ap.add_argument("-e", "--epochs", type=int, default=25,
 ap.add_argument("-b", "--batch_size", type=int, default=128,
 	help="# epochs  ")
 
+
+
 args = vars(ap.parse_args())
 
 if 'n_dims' not in args :
