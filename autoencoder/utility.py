@@ -8,7 +8,7 @@ def load_mnist_dataset(batch_size=128):
     x_test = x_test.reshape(10000, 784).astype('float32') / 255.
     train_data = tf.data.Dataset.from_tensor_slices((x_train,x_train)).batch(batch_size).shuffle(buffer_size=1024)
     test_data = tf.data.Dataset.from_tensor_slices((x_test,x_test)).batch(batch_size).shuffle(buffer_size=512)
-    return train_data, test_data
+    return train_data, test_data, x_test
 
 
 def plot_model_result(input_imgs, decoded_imgs, n, savename=None):
