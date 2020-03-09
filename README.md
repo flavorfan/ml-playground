@@ -1,1 +1,57 @@
-# ml-playground
+# 0 ml-playground
+
+# 1 文档结构
+logs            :  logs for tensorboard
+ckpts           :  checkpoints 
+outputs         :  save plot result
+training_plot   : training loss and accuracy
+
+## train_fan_autoencoder.py 参数
+
+### 可视化/结果保存
+-s number of samples to visualize when decoding
+-o path to output visualization file
+-p path to output train loss plot file
+
+### 模型结构
+-d n_dim of layers
+-c code_dim
+
+### 训练参数
+-e epochs
+-b batch_size
+
+
+# 2 案例
+
+## 训练一个 784 - [256,128] - 16 - [ 128, 256 ] - 784 的autoencoder
+python train_fan_autoencoder.py  -s 10 -o output/fc_256_128_16.png -p training_plot/training_fc_256_128_16.png -d 256 128 -c 16
+
+## 训练一个 784 - [256,128] - 16 - [ 128, 256 ] - 784 的autoencoder
+python train_fan_autoencoder.py  -s 10 -o output/fc_256_128_2.png -p training_plot/training_fc_256_128_2.png -d 256 128 -c 2 -e 25
+
+
+# 参考
+Autoencoders with Keras, TensorFlow, and Deep Learning
+https://www.pyimagesearch.com/2020/02/17/autoencoders-with-keras-tensorflow-and-deep-learning/
+已读，代码运行
+有源码-工业化的封装代码，模型构建和训练脚本分离，有
+
+Building Autoencoders in Keras
+https://blog.keras.io/building-autoencoders-in-keras.html
+读一遍，复现部分
+使用keras api进行ae的实现，原理透彻，需要继续实现
+
+
+
+
+Autoencoders — Guide and Code in TensorFlow 2.0
+https://medium.com/red-buffer/autoencoders-guide-and-code-in-tensorflow-2-0-a4101571ce56
+
+Deep Autoencoder in TensorFlow 2.0
+https://www.deeplearning-academy.com/p/ai-wiki-deep-autoencoder
+
+Anomaly Detection with Autoencoder in TensorFlow 2.0
+https://www.deeplearning-academy.com/p/ai-wiki-anomaly-detection
+
+
