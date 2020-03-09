@@ -31,6 +31,9 @@ python train_fan_autoencoder.py  -s 10 -o output/fc_256_128_16.png -p training_p
 python train_fan_autoencoder.py  -s 10 -o output/fc_256_128_2.png -p training_plot/training_fc_256_128_2.png -d 256 128 -c 2 -e 25
 
 
+python train_fan_autoencoder.py  -s 10 -o output/fc_1000_500_250_2.png -p training_plot/training_fc_1000_500_250_2.png -d 1000 500 250 -c 2 -e 25
+
+
 # 参考
 Autoencoders with Keras, TensorFlow, and Deep Learning
 https://www.pyimagesearch.com/2020/02/17/autoencoders-with-keras-tensorflow-and-deep-learning/

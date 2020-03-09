@@ -8,7 +8,7 @@ from tensorflow.keras.datasets import mnist
 import matplotlib.pyplot as plt
 import numpy as np
 import argparse
-import cv2
+# import cv2
 
 from autoencoder.fan_autoencoder import FanAutoencoder
 
@@ -102,24 +102,47 @@ decoded = autoencoder.predict(testX)
 outputs = None
 
 # loop over our number of output samples
-for i in range(0, args["samples"]):
-	# grab the original image and reconstructed image
-	original = (testX[i] * 255).astype("uint8")
-	recon = (decoded[i] * 255).astype("uint8")
 
-	# stack the original and reconstructed image side-by-side
-	output = np.hstack([original, recon])
 
-	# if the outputs array is empty, initialize it as the current
-	# side-by-side image display
-	if outputs is None:
-		outputs = output
-
-	# otherwise, vertically stack the outputs
-	else:
-		outputs = np.vstack([outputs, output])
+# for i in range(0, args["samples"]):
+# 	# grab the original image and reconstructed image
+# 	original = (testX[i] * 255).astype("uint8")
+# 	recon = (decoded[i] * 255).astype("uint8")
+#
+# 	# stack the original and reconstructed image side-by-side
+# 	output = np.hstack([original, recon])
+#
+# 	# if the outputs array is empty, initialize it as the current
+# 	# side-by-side image display
+# 	if outputs is None:
+# 		outputs = output
+#
+# 	# otherwise, vertically stack the outputs
+# 	else:
+# 		outputs = np.vstack([outputs, output])
 
 # save the outputs image to disk
-cv2.imwrite(args["output"], outputs)
+# cv2.imwrite(args["output"], outputs)
 
+plt.figure(figsize=(20, 4))
+n = args["samples"]
+for i in range(n):
+    # display original
+    ax = plt.subplot(2, n, i + 1)
+    original = (testX[i].reshape(28, 28) * 255).astype("uint8")
+    recon =  (decoded[i].reshape(28, 28) * 255).astype("uint8")
 
+    plt.imshow(original)
+    plt.gray()
+    ax.get_xaxis().set_visible(False)
+    ax.get_yaxis().set_visible(False)
+
+    # display reconstruction
+    ax = plt.subplot(2, n, i + 1 + n)
+    plt.imshow(recon)
+    plt.gray()
+    ax.get_xaxis().set_visible(False)
+    ax.get_yaxis().set_visible(False)
+# if savename:
+#     plt.savefig(savename)
+    plt.savefig(args["output"])
