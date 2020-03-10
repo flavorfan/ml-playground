@@ -30,8 +30,11 @@ python train_fan_autoencoder.py  -s 10 -o output/fc_256_128_16.png -p training_p
 ## 训练一个 784 - [256,128] - 16 - [ 128, 256 ] - 784 的autoencoder
 python train_fan_autoencoder.py  -s 10 -o output/fc_256_128_2.png -p training_plot/training_fc_256_128_2.png -d 256 128 -c 2 -e 25
 
-
+## 
 python train_fan_autoencoder.py  -s 10 -o output/fc_1000_500_250_2.png -p training_plot/training_fc_1000_500_250_2.png -d 1000 500 250 -c 2 -e 25
+
+## 参数改版，用model name 自动生成 结果图 和 training 过程图
+python train_fan_autoencoder.py  -s 10  -m fc_1000_500_250_2 -d 1000 500 250 -c 2 -e 100
 
 
 # 参考
