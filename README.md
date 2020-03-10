@@ -10,8 +10,9 @@ training_plot   : training loss and accuracy
 
 ### 可视化/结果保存
 -s number of samples to visualize when decoding
--o path to output visualization file
--p path to output train loss plot file
+//-o path to output visualization file 
+//-p path to output train loss plot file
+-m model name 
 
 ### 模型结构
 -d n_dim of layers
@@ -21,21 +22,19 @@ training_plot   : training loss and accuracy
 -e epochs
 -b batch_size
 
+### 案例
 
-# 2 案例
+* 784 - [256,128] - 16 - [ 128, 256 ] - 784 
+python train_fan_autoencoder.py  -s 10 -m fc_256_128_16 -d 256 128 -c 16
 
-## 训练一个 784 - [256,128] - 16 - [ 128, 256 ] - 784 的autoencoder
-python train_fan_autoencoder.py  -s 10 -o output/fc_256_128_16.png -p training_plot/training_fc_256_128_16.png -d 256 128 -c 16
+* 784 - [256,128] - 16 - [ 128, 256 ] - 784 
+python train_fan_autoencoder.py  -s 10 -m fc_256_128_2.png -d 256 128 -c 2 -e 25
 
-## 训练一个 784 - [256,128] - 16 - [ 128, 256 ] - 784 的autoencoder
-python train_fan_autoencoder.py  -s 10 -o output/fc_256_128_2.png -p training_plot/training_fc_256_128_2.png -d 256 128 -c 2 -e 25
-
-## 
-python train_fan_autoencoder.py  -s 10 -o output/fc_1000_500_250_2.png -p training_plot/training_fc_1000_500_250_2.png -d 1000 500 250 -c 2 -e 25
-
-## 参数改版，用model name 自动生成 结果图 和 training 过程图
+* 784 - [1000,500,250] - 2 - [250,500,1000] - 784 
 python train_fan_autoencoder.py  -s 10  -m fc_1000_500_250_2 -d 1000 500 250 -c 2 -e 100
 
+## restore_training.py 参数
+python restore_training.py  -s 10  -m fc_1000_500_250_2 -d 1000 500 250 -c 2 -e 100
 
 # 参考
 Autoencoders with Keras, TensorFlow, and Deep Learning

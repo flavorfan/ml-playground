@@ -9,6 +9,8 @@ from tensorflow.keras.callbacks import TensorBoard
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.datasets import mnist
 
+import datetime
+
 import matplotlib.pyplot as plt
 import numpy as np
 import argparse
@@ -107,9 +109,12 @@ tb_log_path = 'logs/' + args['model_name']
 if not os.path.exists(tb_log_path):
     os.makedirs(tb_log_path)
 
+save_dir = os.path.join(os.getcwd(), ckpts_path)
+filepath="model_{epoch:02d}.hdf5"
+
 callbacks = [
     ModelCheckpoint(
-        filepath= ckpts_path + '/fc_ae_{epoch}',
+        filepath= os.path.join(save_dir, filepath),
         save_best_only=True,
         monitor='val_loss',
         verbose=1),
@@ -129,8 +134,10 @@ H = autoencoder.fit(
 
 
 
+now = datetime.datetime.now()
+time_str = now.strftime('%Y%m%d_%H%M%S')
 
-plot_name = 'training_plot/{}.png'.format(args['model_name'])
+plot_name = 'training_plot/{}_{}.png'.format(args['model_name'],time_str)
 training_plot(H,plot_name)
 
 # use the convolutional autoencoder to make predictions on the
@@ -141,8 +148,7 @@ outputs = None
 
 # loop over our number of output samples
 
-output_name = 'output/{}.png'.format(args['model_name'])
-
+output_name = 'output/{}_{}.png'.format(args['model_name'],time_str)
 plt.figure(figsize=(20, 4))
 n = args["samples"]
 for i in range(n):
