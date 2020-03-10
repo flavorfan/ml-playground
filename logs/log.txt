@@ -2,3 +2,227 @@
 2020-03-09 16:02:53,462 - train_fan_autoencoder.py[line:59] - INFO: [INFO] loading MNIST dataset...
 2020-03-09 16:02:53,811 - train_fan_autoencoder.py[line:74] - INFO: [INFO] building autoencoder...
 2020-03-09 16:05:31,581 - train_fan_autoencoder.py[line:100] - INFO: [INFO] making predictions...
+2020-03-10 09:49:01,140 - train_fan_autoencoder.py[line:73] - INFO: {'samples': 10, 'n_dims': [1000, 500, 250], 'code_dim': 2, 'epochs': 100, 'batch_size': 128, 'model_name': 'fc_1000_500_250_2'}
+2020-03-10 09:49:01,140 - train_fan_autoencoder.py[line:79] - INFO:  loading MNIST dataset...
+2020-03-10 09:49:01,493 - train_fan_autoencoder.py[line:94] - INFO:  building autoencoder...
+2020-03-10 09:49:08,535 - deprecation.py[line:506] - WARNING: From /home/algo/shell/pyenv/venv/lib/python3.6/site-packages/tensorflow_core/python/ops/resource_variable_ops.py:1786: calling BaseResourceVariable.__init__ (from tensorflow.python.ops.resource_variable_ops) with constraint is deprecated and will be removed in a future version.
+Instructions for updating:
+If using Keras pass *_constraint arguments to layers.
+2020-03-10 09:49:08,817 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_1000_500_250_2/fc_ae_1/assets
+2020-03-10 09:49:13,758 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_1000_500_250_2/fc_ae_2/assets
+2020-03-10 09:49:18,731 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_1000_500_250_2/fc_ae_3/assets
+2020-03-10 09:49:23,707 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_1000_500_250_2/fc_ae_4/assets
+2020-03-10 09:49:28,709 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_1000_500_250_2/fc_ae_5/assets
+2020-03-10 09:49:33,647 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_1000_500_250_2/fc_ae_6/assets
+2020-03-10 09:49:38,644 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_1000_500_250_2/fc_ae_7/assets
+2020-03-10 09:49:43,562 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_1000_500_250_2/fc_ae_8/assets
+2020-03-10 09:49:48,520 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_1000_500_250_2/fc_ae_9/assets
+2020-03-10 09:49:53,532 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_1000_500_250_2/fc_ae_10/assets
+2020-03-10 09:49:58,484 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_1000_500_250_2/fc_ae_11/assets
+2020-03-10 09:50:03,498 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_1000_500_250_2/fc_ae_12/assets
+2020-03-10 09:50:08,430 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_1000_500_250_2/fc_ae_13/assets
+2020-03-10 09:50:13,482 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_1000_500_250_2/fc_ae_14/assets
+2020-03-10 09:50:18,441 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_1000_500_250_2/fc_ae_15/assets
+2020-03-10 09:50:23,370 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_1000_500_250_2/fc_ae_16/assets
+2020-03-10 09:50:32,275 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_1000_500_250_2/fc_ae_18/assets
+2020-03-10 09:50:41,115 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_1000_500_250_2/fc_ae_20/assets
+2020-03-10 09:50:46,090 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_1000_500_250_2/fc_ae_21/assets
+2020-03-10 09:50:51,028 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_1000_500_250_2/fc_ae_22/assets
+2020-03-10 09:50:59,970 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_1000_500_250_2/fc_ae_24/assets
+2020-03-10 09:51:16,681 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_1000_500_250_2/fc_ae_28/assets
+2020-03-10 09:51:29,524 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_1000_500_250_2/fc_ae_31/assets
+2020-03-10 09:51:34,544 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_1000_500_250_2/fc_ae_32/assets
+2020-03-10 09:51:51,152 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_1000_500_250_2/fc_ae_36/assets
+2020-03-10 09:52:07,905 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_1000_500_250_2/fc_ae_40/assets
+2020-03-10 09:52:36,373 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_1000_500_250_2/fc_ae_47/assets
+2020-03-10 09:52:45,249 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_1000_500_250_2/fc_ae_49/assets
+2020-03-10 09:53:13,668 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_1000_500_250_2/fc_ae_56/assets
+2020-03-10 09:53:18,666 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_1000_500_250_2/fc_ae_57/assets
+2020-03-10 09:53:23,578 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_1000_500_250_2/fc_ae_58/assets
+2020-03-10 09:54:03,747 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_1000_500_250_2/fc_ae_68/assets
+2020-03-10 09:54:12,646 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_1000_500_250_2/fc_ae_70/assets
+2020-03-10 09:54:17,601 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_1000_500_250_2/fc_ae_71/assets
+2020-03-10 09:54:22,642 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_1000_500_250_2/fc_ae_72/assets
+2020-03-10 09:54:27,657 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_1000_500_250_2/fc_ae_73/assets
+2020-03-10 09:54:56,161 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_1000_500_250_2/fc_ae_80/assets
+2020-03-10 09:56:14,762 - train_fan_autoencoder.py[line:137] - INFO:  making predictions...
+2020-03-10 11:07:33,342 - restore_training.py[line:87] - INFO: {'samples': 10, 'n_dims': [1000, 500, 250], 'code_dim': 2, 'epochs': 100, 'batch_size': 128, 'model_name': 'fc_1000_500_250_2'}
+2020-03-10 11:07:33,342 - restore_training.py[line:71] - INFO:  loading MNIST dataset...
+2020-03-10 11:11:05,797 - restore_training.py[line:87] - INFO: {'samples': 10, 'n_dims': [1000, 500, 250], 'code_dim': 2, 'epochs': 100, 'batch_size': 128, 'model_name': 'fc_1000_500_250_2'}
+2020-03-10 11:11:05,797 - restore_training.py[line:71] - INFO:  loading MNIST dataset...
+2020-03-10 11:12:32,851 - restore_training.py[line:87] - INFO: {'samples': 10, 'n_dims': [1000, 500, 250], 'code_dim': 2, 'epochs': 100, 'batch_size': 128, 'model_name': 'fc_1000_500_250_2'}
+2020-03-10 11:12:32,851 - restore_training.py[line:71] - INFO:  loading MNIST dataset...
+2020-03-10 11:25:35,586 - train_fan_autoencoder.py[line:73] - INFO: {'samples': 10, 'n_dims': [256, 128], 'code_dim': 16, 'epochs': 25, 'batch_size': 128, 'model_name': 'fc_256_128_16'}
+2020-03-10 11:25:35,586 - train_fan_autoencoder.py[line:79] - INFO:  loading MNIST dataset...
+2020-03-10 11:25:35,936 - train_fan_autoencoder.py[line:94] - INFO:  building autoencoder...
+2020-03-10 11:25:42,496 - deprecation.py[line:506] - WARNING: From /home/algo/shell/pyenv/venv/lib/python3.6/site-packages/tensorflow_core/python/ops/resource_variable_ops.py:1786: calling BaseResourceVariable.__init__ (from tensorflow.python.ops.resource_variable_ops) with constraint is deprecated and will be removed in a future version.
+Instructions for updating:
+If using Keras pass *_constraint arguments to layers.
+2020-03-10 11:25:42,690 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_256_128_16/fc_ae_1/assets
+2020-03-10 11:25:47,086 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_256_128_16/fc_ae_2/assets
+2020-03-10 11:25:51,567 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_256_128_16/fc_ae_3/assets
+2020-03-10 11:25:55,955 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_256_128_16/fc_ae_4/assets
+2020-03-10 11:26:00,333 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_256_128_16/fc_ae_5/assets
+2020-03-10 11:26:04,791 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_256_128_16/fc_ae_6/assets
+2020-03-10 11:26:09,201 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_256_128_16/fc_ae_7/assets
+2020-03-10 11:26:13,619 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_256_128_16/fc_ae_8/assets
+2020-03-10 11:26:18,106 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_256_128_16/fc_ae_9/assets
+2020-03-10 11:26:22,563 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_256_128_16/fc_ae_10/assets
+2020-03-10 11:26:26,980 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_256_128_16/fc_ae_11/assets
+2020-03-10 11:26:31,441 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_256_128_16/fc_ae_12/assets
+2020-03-10 11:26:35,849 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_256_128_16/fc_ae_13/assets
+2020-03-10 11:26:40,366 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_256_128_16/fc_ae_14/assets
+2020-03-10 11:26:44,759 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_256_128_16/fc_ae_15/assets
+2020-03-10 11:26:49,154 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_256_128_16/fc_ae_16/assets
+2020-03-10 11:26:53,612 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_256_128_16/fc_ae_17/assets
+2020-03-10 11:26:58,037 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_256_128_16/fc_ae_18/assets
+2020-03-10 11:27:02,465 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_256_128_16/fc_ae_19/assets
+2020-03-10 11:27:06,934 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_256_128_16/fc_ae_20/assets
+2020-03-10 11:27:11,323 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_256_128_16/fc_ae_21/assets
+2020-03-10 11:27:15,746 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_256_128_16/fc_ae_22/assets
+2020-03-10 11:27:23,774 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_256_128_16/fc_ae_24/assets
+2020-03-10 11:27:27,562 - train_fan_autoencoder.py[line:138] - INFO:  making predictions...
+2020-03-10 11:27:30,364 - train_fan_autoencoder.py[line:169] - INFO:  Done!
+2020-03-10 11:36:08,486 - train_fan_autoencoder.py[line:73] - INFO: {'samples': 10, 'n_dims': [256, 128], 'code_dim': 16, 'epochs': 25, 'batch_size': 128, 'model_name': 'fc_256_128_16'}
+2020-03-10 11:36:08,486 - train_fan_autoencoder.py[line:79] - INFO:  loading MNIST dataset...
+2020-03-10 11:36:08,842 - train_fan_autoencoder.py[line:94] - INFO:  building autoencoder...
+2020-03-10 11:37:34,287 - train_fan_autoencoder.py[line:73] - INFO: {'samples': 10, 'n_dims': [256, 128], 'code_dim': 16, 'epochs': 25, 'batch_size': 128, 'model_name': 'fc_256_128_16'}
+2020-03-10 11:37:34,287 - train_fan_autoencoder.py[line:79] - INFO:  loading MNIST dataset...
+2020-03-10 11:37:34,635 - train_fan_autoencoder.py[line:94] - INFO:  building autoencoder...
+2020-03-10 11:39:06,314 - train_fan_autoencoder.py[line:141] - INFO:  making predictions...
+2020-03-10 11:39:09,206 - train_fan_autoencoder.py[line:172] - INFO:  Done!
+2020-03-10 11:40:39,299 - train_fan_autoencoder.py[line:73] - INFO: {'samples': 10, 'n_dims': [1000, 500, 250], 'code_dim': 2, 'epochs': 100, 'batch_size': 128, 'model_name': 'fc_1000_500_250_2'}
+2020-03-10 11:40:39,300 - train_fan_autoencoder.py[line:79] - INFO:  loading MNIST dataset...
+2020-03-10 11:40:39,647 - train_fan_autoencoder.py[line:94] - INFO:  building autoencoder...
+2020-03-10 11:47:18,681 - train_fan_autoencoder.py[line:141] - INFO:  making predictions...
+2020-03-10 11:47:21,728 - train_fan_autoencoder.py[line:172] - INFO:  Done!
+2020-03-10 11:48:10,515 - restore_training.py[line:87] - INFO: {'samples': 10, 'n_dims': [1000, 500, 250], 'code_dim': 2, 'epochs': 100, 'batch_size': 128, 'model_name': 'fc_1000_500_250_2'}
+2020-03-10 11:48:10,515 - restore_training.py[line:71] - INFO:  loading MNIST dataset...
+2020-03-10 11:48:12,130 - restore_training.py[line:108] - INFO: ckpts/fc_1000_500_250_2
+2020-03-10 11:48:12,130 - restore_training.py[line:109] - INFO: None
+2020-03-10 11:50:44,960 - restore_training.py[line:87] - INFO: {'samples': 10, 'n_dims': [1000, 500, 250], 'code_dim': 2, 'epochs': 100, 'batch_size': 128, 'model_name': 'fc_1000_500_250_2'}
+2020-03-10 11:50:44,960 - restore_training.py[line:71] - INFO:  loading MNIST dataset...
+2020-03-10 11:50:46,544 - restore_training.py[line:109] - INFO: ckpts/fc_1000_500_250_2
+2020-03-10 11:50:46,545 - restore_training.py[line:110] - INFO: None
+2020-03-10 11:51:39,015 - restore_training.py[line:87] - INFO: {'samples': 10, 'n_dims': [1000, 500, 250], 'code_dim': 2, 'epochs': 100, 'batch_size': 128, 'model_name': 'fc_1000_500_250_2'}
+2020-03-10 11:51:39,015 - restore_training.py[line:71] - INFO:  loading MNIST dataset...
+2020-03-10 11:51:40,610 - restore_training.py[line:109] - INFO: /home/algo/code/gitrepo/pylib/ml-playground/ckpts/fc_1000_500_250_2
+2020-03-10 11:51:40,610 - restore_training.py[line:110] - INFO: None
+2020-03-10 11:53:03,734 - restore_training.py[line:87] - INFO: {'samples': 10, 'n_dims': [1000, 500, 250], 'code_dim': 2, 'epochs': 100, 'batch_size': 128, 'model_name': 'fc_1000_500_250_2'}
+2020-03-10 11:53:03,734 - restore_training.py[line:71] - INFO:  loading MNIST dataset...
+2020-03-10 11:53:05,327 - restore_training.py[line:109] - INFO: /home/algo/code/gitrepo/pylib/ml-playground/ckpts/fc_1000_500_250_2
+2020-03-10 11:53:52,107 - restore_training.py[line:87] - INFO: {'samples': 10, 'n_dims': [1000, 500, 250], 'code_dim': 2, 'epochs': 100, 'batch_size': 128, 'model_name': 'fc_1000_500_250_2'}
+2020-03-10 11:53:52,107 - restore_training.py[line:71] - INFO:  loading MNIST dataset...
+2020-03-10 11:53:53,650 - restore_training.py[line:109] - INFO: /home/algo/code/gitrepo/pylib/ml-playground/ckpts/fc_1000_500_250_2
+2020-03-10 11:54:22,967 - restore_training.py[line:87] - INFO: {'samples': 10, 'n_dims': [1000, 500, 250], 'code_dim': 2, 'epochs': 100, 'batch_size': 128, 'model_name': 'fc_1000_500_250_2'}
+2020-03-10 11:54:22,967 - restore_training.py[line:71] - INFO:  loading MNIST dataset...
+2020-03-10 11:54:24,566 - restore_training.py[line:109] - INFO: /home/algo/code/gitrepo/pylib/ml-playground/ckpts/fc_1000_500_250_2
+2020-03-10 11:54:30,417 - deprecation.py[line:506] - WARNING: From /home/algo/shell/pyenv/venv/lib/python3.6/site-packages/tensorflow_core/python/ops/resource_variable_ops.py:1786: calling BaseResourceVariable.__init__ (from tensorflow.python.ops.resource_variable_ops) with constraint is deprecated and will be removed in a future version.
+Instructions for updating:
+If using Keras pass *_constraint arguments to layers.
+2020-03-10 11:54:30,701 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_1000_500_250_2/fc_ae_1/assets
+2020-03-10 11:54:55,488 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_1000_500_250_2/fc_ae_7/assets
+2020-03-10 11:55:36,226 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_1000_500_250_2/fc_ae_17/assets
+2020-03-10 11:56:12,937 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_1000_500_250_2/fc_ae_26/assets
+2020-03-10 11:59:08,261 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_1000_500_250_2/fc_ae_70/assets
+2020-03-10 12:00:40,489 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_1000_500_250_2/fc_ae_93/assets
+2020-03-10 12:00:45,580 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_1000_500_250_2/fc_ae_94/assets
+2020-03-10 12:01:09,585 - restore_training.py[line:141] - INFO:  making predictions...
+2020-03-10 12:01:12,481 - restore_training.py[line:169] - INFO:  Done!
+2020-03-10 13:18:44,053 - train_fan_autoencoder.py[line:75] - INFO: {'samples': 10, 'n_dims': [256, 128], 'code_dim': 16, 'epochs': 25, 'batch_size': 128, 'model_name': 'fc_256_128_16'}
+2020-03-10 13:18:44,054 - train_fan_autoencoder.py[line:81] - INFO:  loading MNIST dataset...
+2020-03-10 13:18:44,401 - train_fan_autoencoder.py[line:96] - INFO:  building autoencoder...
+2020-03-10 13:18:50,891 - deprecation.py[line:506] - WARNING: From /home/algo/shell/pyenv/venv/lib/python3.6/site-packages/tensorflow_core/python/ops/resource_variable_ops.py:1786: calling BaseResourceVariable.__init__ (from tensorflow.python.ops.resource_variable_ops) with constraint is deprecated and will be removed in a future version.
+Instructions for updating:
+If using Keras pass *_constraint arguments to layers.
+2020-03-10 13:18:51,087 - builder_impl.py[line:775] - INFO: Assets written to: /home/algo/code/gitrepo/pylib/ml-playground/ckpts/fc_256_128_16/cp_0001.ckpt/assets
+2020-03-10 13:18:55,446 - builder_impl.py[line:775] - INFO: Assets written to: /home/algo/code/gitrepo/pylib/ml-playground/ckpts/fc_256_128_16/cp_0002.ckpt/assets
+2020-03-10 13:18:59,831 - builder_impl.py[line:775] - INFO: Assets written to: /home/algo/code/gitrepo/pylib/ml-playground/ckpts/fc_256_128_16/cp_0003.ckpt/assets
+2020-03-10 13:19:04,177 - builder_impl.py[line:775] - INFO: Assets written to: /home/algo/code/gitrepo/pylib/ml-playground/ckpts/fc_256_128_16/cp_0004.ckpt/assets
+2020-03-10 13:19:08,541 - builder_impl.py[line:775] - INFO: Assets written to: /home/algo/code/gitrepo/pylib/ml-playground/ckpts/fc_256_128_16/cp_0005.ckpt/assets
+2020-03-10 13:19:12,934 - builder_impl.py[line:775] - INFO: Assets written to: /home/algo/code/gitrepo/pylib/ml-playground/ckpts/fc_256_128_16/cp_0006.ckpt/assets
+2020-03-10 13:19:17,287 - builder_impl.py[line:775] - INFO: Assets written to: /home/algo/code/gitrepo/pylib/ml-playground/ckpts/fc_256_128_16/cp_0007.ckpt/assets
+2020-03-10 13:19:21,637 - builder_impl.py[line:775] - INFO: Assets written to: /home/algo/code/gitrepo/pylib/ml-playground/ckpts/fc_256_128_16/cp_0008.ckpt/assets
+2020-03-10 13:19:26,100 - builder_impl.py[line:775] - INFO: Assets written to: /home/algo/code/gitrepo/pylib/ml-playground/ckpts/fc_256_128_16/cp_0009.ckpt/assets
+2020-03-10 13:19:30,445 - builder_impl.py[line:775] - INFO: Assets written to: /home/algo/code/gitrepo/pylib/ml-playground/ckpts/fc_256_128_16/cp_0010.ckpt/assets
+2020-03-10 13:19:34,799 - builder_impl.py[line:775] - INFO: Assets written to: /home/algo/code/gitrepo/pylib/ml-playground/ckpts/fc_256_128_16/cp_0011.ckpt/assets
+2020-03-10 13:19:39,213 - builder_impl.py[line:775] - INFO: Assets written to: /home/algo/code/gitrepo/pylib/ml-playground/ckpts/fc_256_128_16/cp_0012.ckpt/assets
+2020-03-10 13:19:43,533 - builder_impl.py[line:775] - INFO: Assets written to: /home/algo/code/gitrepo/pylib/ml-playground/ckpts/fc_256_128_16/cp_0013.ckpt/assets
+2020-03-10 13:19:48,001 - builder_impl.py[line:775] - INFO: Assets written to: /home/algo/code/gitrepo/pylib/ml-playground/ckpts/fc_256_128_16/cp_0014.ckpt/assets
+2020-03-10 13:19:52,364 - builder_impl.py[line:775] - INFO: Assets written to: /home/algo/code/gitrepo/pylib/ml-playground/ckpts/fc_256_128_16/cp_0015.ckpt/assets
+2020-03-10 13:19:56,704 - builder_impl.py[line:775] - INFO: Assets written to: /home/algo/code/gitrepo/pylib/ml-playground/ckpts/fc_256_128_16/cp_0016.ckpt/assets
+2020-03-10 13:20:01,104 - builder_impl.py[line:775] - INFO: Assets written to: /home/algo/code/gitrepo/pylib/ml-playground/ckpts/fc_256_128_16/cp_0017.ckpt/assets
+2020-03-10 13:20:05,425 - builder_impl.py[line:775] - INFO: Assets written to: /home/algo/code/gitrepo/pylib/ml-playground/ckpts/fc_256_128_16/cp_0018.ckpt/assets
+2020-03-10 13:20:09,761 - builder_impl.py[line:775] - INFO: Assets written to: /home/algo/code/gitrepo/pylib/ml-playground/ckpts/fc_256_128_16/cp_0019.ckpt/assets
+2020-03-10 13:20:14,194 - builder_impl.py[line:775] - INFO: Assets written to: /home/algo/code/gitrepo/pylib/ml-playground/ckpts/fc_256_128_16/cp_0020.ckpt/assets
+2020-03-10 13:20:18,539 - builder_impl.py[line:775] - INFO: Assets written to: /home/algo/code/gitrepo/pylib/ml-playground/ckpts/fc_256_128_16/cp_0021.ckpt/assets
+2020-03-10 13:20:22,908 - builder_impl.py[line:775] - INFO: Assets written to: /home/algo/code/gitrepo/pylib/ml-playground/ckpts/fc_256_128_16/cp_0022.ckpt/assets
+2020-03-10 13:20:27,329 - builder_impl.py[line:775] - INFO: Assets written to: /home/algo/code/gitrepo/pylib/ml-playground/ckpts/fc_256_128_16/cp_0023.ckpt/assets
+2020-03-10 13:20:34,631 - train_fan_autoencoder.py[line:145] - INFO:  making predictions...
+2020-03-10 13:20:37,402 - train_fan_autoencoder.py[line:176] - INFO:  Done!
+2020-03-10 13:25:18,571 - train_fan_autoencoder.py[line:75] - INFO: {'samples': 10, 'n_dims': [256, 128], 'code_dim': 16, 'epochs': 25, 'batch_size': 128, 'model_name': 'fc_256_128_16'}
+2020-03-10 13:25:18,572 - train_fan_autoencoder.py[line:81] - INFO:  loading MNIST dataset...
+2020-03-10 13:25:18,918 - train_fan_autoencoder.py[line:96] - INFO:  building autoencoder...
+2020-03-10 13:25:20,145 - callbacks.py[line:886] - WARNING: `period` argument is deprecated. Please use `save_freq` to specify the frequency in number of samples seen.
+2020-03-10 13:26:50,175 - train_fan_autoencoder.py[line:146] - INFO:  making predictions...
+2020-03-10 13:26:53,026 - train_fan_autoencoder.py[line:177] - INFO:  Done!
+2020-03-10 13:32:17,431 - restore_training.py[line:87] - INFO: {'samples': 10, 'n_dims': [256, 128], 'code_dim': 16, 'epochs': 20, 'batch_size': 128, 'model_name': 'fc_256_128_16'}
+2020-03-10 13:32:17,431 - restore_training.py[line:71] - INFO:  loading MNIST dataset...
+2020-03-10 13:32:19,004 - restore_training.py[line:110] - INFO: ckpts/fc_256_128_16
+2020-03-10 13:32:19,004 - restore_training.py[line:111] - INFO: ckpts/fc_256_128_16/model_0025.ckpt
+2020-03-10 13:32:24,353 - deprecation.py[line:506] - WARNING: From /home/algo/shell/pyenv/venv/lib/python3.6/site-packages/tensorflow_core/python/ops/resource_variable_ops.py:1786: calling BaseResourceVariable.__init__ (from tensorflow.python.ops.resource_variable_ops) with constraint is deprecated and will be removed in a future version.
+Instructions for updating:
+If using Keras pass *_constraint arguments to layers.
+2020-03-10 13:32:24,550 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_256_128_16/model_0001.ckpt/assets
+2020-03-10 13:32:32,431 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_256_128_16/model_0003.ckpt/assets
+2020-03-10 13:32:36,895 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_256_128_16/model_0004.ckpt/assets
+2020-03-10 13:32:44,855 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_256_128_16/model_0006.ckpt/assets
+2020-03-10 13:32:49,208 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_256_128_16/model_0007.ckpt/assets
+2020-03-10 13:32:53,651 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_256_128_16/model_0008.ckpt/assets
+2020-03-10 13:33:01,544 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_256_128_16/model_0010.ckpt/assets
+2020-03-10 13:33:05,946 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_256_128_16/model_0011.ckpt/assets
+2020-03-10 13:33:10,408 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_256_128_16/model_0012.ckpt/assets
+2020-03-10 13:33:14,779 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_256_128_16/model_0013.ckpt/assets
+2020-03-10 13:33:19,130 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_256_128_16/model_0014.ckpt/assets
+2020-03-10 13:33:34,187 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_256_128_16/model_0018.ckpt/assets
+2020-03-10 13:33:38,597 - builder_impl.py[line:775] - INFO: Assets written to: ckpts/fc_256_128_16/model_0019.ckpt/assets
+2020-03-10 13:33:42,366 - restore_training.py[line:146] - INFO:  making predictions...
+2020-03-10 13:33:45,218 - restore_training.py[line:174] - INFO:  Done!
+2020-03-10 13:34:26,395 - restore_training.py[line:87] - INFO: {'samples': 10, 'n_dims': [256, 128], 'code_dim': 16, 'epochs': 20, 'batch_size': 128, 'model_name': 'fc_256_128_16'}
+2020-03-10 13:34:26,395 - restore_training.py[line:71] - INFO:  loading MNIST dataset...
+2020-03-10 13:34:27,968 - restore_training.py[line:110] - INFO: ckpts/fc_256_128_16
+2020-03-10 13:34:27,968 - restore_training.py[line:111] - INFO: ckpts/fc_256_128_16/model_0025.ckpt
+2020-03-10 13:34:28,052 - callbacks.py[line:886] - WARNING: `period` argument is deprecated. Please use `save_freq` to specify the frequency in number of samples seen.
+2020-03-10 13:35:40,902 - restore_training.py[line:147] - INFO:  making predictions...
+2020-03-10 13:35:43,831 - restore_training.py[line:175] - INFO:  Done!
+2020-03-10 13:37:52,054 - train_fan_autoencoder.py[line:75] - INFO: {'samples': 10, 'n_dims': [1000, 500, 250], 'code_dim': 2, 'epochs': 100, 'batch_size': 128, 'model_name': 'fc_1000_500_250_2'}
+2020-03-10 13:37:52,054 - train_fan_autoencoder.py[line:81] - INFO:  loading MNIST dataset...
+2020-03-10 13:37:52,402 - train_fan_autoencoder.py[line:96] - INFO:  building autoencoder...
+2020-03-10 13:37:53,660 - callbacks.py[line:886] - WARNING: `period` argument is deprecated. Please use `save_freq` to specify the frequency in number of samples seen.
+2020-03-10 13:44:33,451 - train_fan_autoencoder.py[line:146] - INFO:  making predictions...
+2020-03-10 13:44:36,477 - train_fan_autoencoder.py[line:177] - INFO:  Done!
+2020-03-10 14:04:13,904 - train_fan_autoencoder.py[line:82] - INFO: {'model_type': 'rnn', 'samples': 10, 'n_dims': [64, 32], 'code_dim': 2, 'epochs': 100, 'batch_size': 128, 'model_name': 'rnn_64_32_2'}
+2020-03-10 14:04:13,904 - train_fan_autoencoder.py[line:88] - INFO:  loading MNIST dataset...
+2020-03-10 14:04:14,255 - train_fan_autoencoder.py[line:103] - INFO:  building autoencoder...
+2020-03-10 14:04:15,684 - callbacks.py[line:886] - WARNING: `period` argument is deprecated. Please use `save_freq` to specify the frequency in number of samples seen.
+2020-03-10 14:14:31,799 - train_fan_autoencoder.py[line:160] - INFO:  making predictions...
+2020-03-10 14:14:35,305 - train_fan_autoencoder.py[line:191] - INFO:  Done!
+2020-03-10 15:26:42,382 - train_denoising_autoencoder.py[line:88] - INFO: {'factor_noise': 0.5, 'model_type': 'rnn', 'samples': 10, 'n_dims': [64, 32], 'code_dim': 16, 'epochs': 50, 'batch_size': 128, 'model_name': 'rnn_64_32_16'}
+2020-03-10 15:26:42,382 - train_denoising_autoencoder.py[line:94] - INFO:  loading MNIST dataset...
+2020-03-10 15:26:45,292 - train_denoising_autoencoder.py[line:114] - INFO:  building autoencoder...
+2020-03-10 15:26:46,781 - callbacks.py[line:886] - WARNING: `period` argument is deprecated. Please use `save_freq` to specify the frequency in number of samples seen.
+2020-03-10 15:31:58,447 - train_denoising_autoencoder.py[line:170] - INFO:  making predictions...
+2020-03-10 15:32:02,308 - train_denoising_autoencoder.py[line:209] - INFO:  Done!
+2020-03-10 15:44:53,440 - train_denoising_autoencoder.py[line:89] - INFO: {'factor_noise': 0.5, 'model_type': 'rnn', 'samples': 10, 'n_dims': [64, 32], 'code_dim': 16, 'epochs': 50, 'batch_size': 128, 'model_name': 'dn_rnn_64_32_16'}
+2020-03-10 15:44:53,440 - train_denoising_autoencoder.py[line:95] - INFO:  loading MNIST dataset...
+2020-03-10 15:45:58,660 - train_denoising_autoencoder.py[line:89] - INFO: {'factor_noise': 0.5, 'model_type': 'rnn', 'samples': 10, 'n_dims': [64, 32], 'code_dim': 16, 'epochs': 50, 'batch_size': 128, 'model_name': 'dn_rnn_64_32_16'}
+2020-03-10 15:45:58,661 - train_denoising_autoencoder.py[line:95] - INFO:  loading MNIST dataset...
+2020-03-10 15:46:00,336 - train_denoising_autoencoder.py[line:118] - INFO:  building autoencoder...
+2020-03-10 15:46:00,673 - callbacks.py[line:886] - WARNING: `period` argument is deprecated. Please use `save_freq` to specify the frequency in number of samples seen.
+2020-03-10 15:51:13,410 - train_denoising_autoencoder.py[line:174] - INFO:  making predictions...
+2020-03-10 15:58:33,755 - train_denoising_autoencoder.py[line:89] - INFO: {'factor_noise': 0.5, 'model_type': 'rnn', 'samples': 10, 'n_dims': [64, 32], 'code_dim': 16, 'epochs': 50, 'batch_size': 128, 'model_name': 'dn_rnn_64_32_16'}
+2020-03-10 15:58:33,755 - train_denoising_autoencoder.py[line:95] - INFO:  loading MNIST dataset...
+2020-03-10 15:58:36,822 - train_denoising_autoencoder.py[line:125] - INFO:  building autoencoder...
+2020-03-10 15:58:38,320 - callbacks.py[line:886] - WARNING: `period` argument is deprecated. Please use `save_freq` to specify the frequency in number of samples seen.
+2020-03-10 16:03:54,257 - train_denoising_autoencoder.py[line:181] - INFO:  making predictions...
+2020-03-10 16:03:58,076 - train_denoising_autoencoder.py[line:220] - INFO:  Done!

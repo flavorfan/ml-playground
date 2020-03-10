@@ -24,6 +24,7 @@ import argparse
 # import cv2
 
 from autoencoder.fan_autoencoder import FanAutoencoder
+from autoencoder.fan_cnn_autoencoder import FanCnnAutoencoder
 from visualization.plot_autoencoder_result import training_plot
 
 # log
@@ -34,6 +35,10 @@ def arg_parse():
     # global args
     # construct the argument parse and parse the arguments
     ap = argparse.ArgumentParser()
+    # select model type : fc, cnn,
+    ap.add_argument("-t", "--model_type", type=str, default="fc",
+                    help="# select model_type from fc,rnn,and so on  ")
+
     ap.add_argument("-s", "--samples", type=int, default=8,
                     help="# number of samples to visualize when decoding")
     ap.add_argument("-d", "--n_dims", nargs='+', type=int,
@@ -56,14 +61,6 @@ def arg_parse():
         args['n_dims'] = [256, 128]
 
     return args
-
-
-# def train_and_checkpoint(net, manager):
-#     ckpt.restore(manager.latest_checkpoint)
-#     if manager.latest_checkpoint:
-#         logging.info("Restored from {}".format(manager.latest_checkpoint))
-#     else:
-#         logging.info("Initializing from scratch.")
 
 
 def load_mnist_data():
@@ -100,8 +97,15 @@ if __name__ == '__main__':
     now = datetime.datetime.now()
     time_str = now.strftime('%Y%m%d_%H%M%S')
 
+    # (encoder, decoder, autoencoder) = FanAutoencoder.build(28, 28, 1, args['n_dims'], args['code_dim'])
+    if args['model_type'] == 'rnn':
+        (encoder, decoder, autoencoder) = FanCnnAutoencoder.build(28, 28, 1, args['n_dims'], args['code_dim'])
+    elif args['model_type'] == 'fc':
+        (encoder, decoder, autoencoder) = FanAutoencoder.build(28, 28, 1, args['n_dims'], args['code_dim'])
+    else:  #
+        (encoder, decoder, autoencoder) = FanAutoencoder.build(28, 28, 1, args['n_dims'], args['code_dim'])
+
     opt = Adam(lr=1e-3)
-    (encoder, decoder, autoencoder) = FanAutoencoder.build(28, 28, 1, args['n_dims'], args['code_dim'])
     autoencoder.compile(loss="mse", optimizer=opt)
 
     # load the latest ckpt
@@ -111,12 +115,6 @@ if __name__ == '__main__':
     logging.info(latest)
     # latest = '/home/algo/code/gitrepo/pylib/ml-playground/ckpts/fc_1000_500_250_2/model_94.hdf5'
     autoencoder.load_weights(latest)
-
-    # loss,acc = autoencoder.evaluate(testX, testX) # may be wrong
-    # logging.info("Restored model, accuracy: {:5.2f}%".format(100 * acc))
-
-    # save_dir = os.path.join(os.getcwd(), ckpts_path)
-    # filepath = "model_{epoch:02d}.hdf5"
 
     checkpoint_path = ckpts_path + "/model_{epoch:04d}.ckpt"
 
@@ -174,8 +172,4 @@ if __name__ == '__main__':
 
     logging.info(" Done!")
 
-    # ckpt = tf.train.Checkpoint(step=tf.Variable(1), optimizer=opt, net=autoencoder)
-    # manager = tf.train.CheckpointManager(ckpt, ckpts_path, max_to_keep=3)
-
-    # train_and_checkpoint(autoencoder, manager)
 

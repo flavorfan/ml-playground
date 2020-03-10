@@ -41,6 +41,11 @@ python restore_training.py  -s 10  -m fc_1000_500_250_2 -d 1000 500 250 -c 2 -e 
 
 python restore_training.py  -s 10 -m fc_256_128_16 -d 256 128 -c 16 -e 20
 
+## train_denoising_autoencoder.py 
+python train_denoising_autoencoder.py  -t rnn -s 10  -m dn_rnn_64_32_16 -d 64 32 -c 16 -e 50 -b 128
+
+
+
 # 参考
 Autoencoders with Keras, TensorFlow, and Deep Learning
 https://www.pyimagesearch.com/2020/02/17/autoencoders-with-keras-tensorflow-and-deep-learning/
