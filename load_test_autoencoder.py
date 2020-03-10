@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# @Time    : 2020/3/10 10:12
+# @Time    : 2020/3/10 16:19
 # @Author  : Flavorfan
-# @File    : restore_training.py
+# @File    : load_test_autoencoder.py
 
 import matplotlib
 matplotlib.use("Agg")
@@ -82,20 +82,9 @@ if __name__ == '__main__':
     args = arg_parse()
     root_logger('./logs/log.txt')
     logging.info(str(args))
-    # data
-    trainX, testX = load_mnist_data()
 
-    # checkpoints save and restore
+    # load model
     ckpts_path = 'ckpts/' + args['model_name']
-    if not os.path.exists(ckpts_path):
-        os.makedirs(ckpts_path)
-
-    tb_log_path = 'logs/' + args['model_name']
-    if not os.path.exists(tb_log_path):
-        os.makedirs(tb_log_path)
-
-    now = datetime.datetime.now()
-    time_str = now.strftime('%Y%m%d_%H%M%S')
 
     # (encoder, decoder, autoencoder) = FanAutoencoder.build(28, 28, 1, args['n_dims'], args['code_dim'])
     if args['model_type'] == 'rnn':
@@ -107,50 +96,24 @@ if __name__ == '__main__':
 
     opt = Adam(lr=1e-3)
     autoencoder.compile(loss="mse", optimizer=opt)
-
-    # load the latest ckpt
-    # save_dir = os.path.join(os.getcwd(), ckpts_path)
     latest = tf.train.latest_checkpoint(ckpts_path)
-    logging.info(ckpts_path)
-    logging.info(latest)
-    # latest = '/home/algo/code/gitrepo/pylib/ml-playground/ckpts/fc_1000_500_250_2/model_94.hdf5'
     autoencoder.load_weights(latest)
 
-    checkpoint_path = ckpts_path + "/model_{epoch:04d}.ckpt"
-
-    callbacks = [
-        ModelCheckpoint(
-            filepath= checkpoint_path,
-            save_weights_only=True,
-            # monitor='val_loss',
-            period=5,
-            verbose=1),
-        TensorBoard(log_dir=tb_log_path)
-    ]
-
-    EPOCHS = args['epochs']  # 25
-    BS = args['batch_size']  # 32
-
-    H = autoencoder.fit(
-        trainX, trainX,
-        validation_data=(testX, testX),
-        epochs=EPOCHS,
-        batch_size=BS,
-        callbacks=callbacks)
+    # data
+    trainX, testX = load_mnist_data()
 
 
-    plot_name = 'training_plot/{}_{}.png'.format(args['model_name'],time_str)
-    training_plot(H, plot_name, EPOCHS)
 
-    logging.info(" making predictions...")
-    decoded = autoencoder.predict(testX)
-    outputs = None
+    code = encoder.predict(testX)
+    logging.info(str(code[0]))
+    decoded = decoder.predict(code)
 
+    now = datetime.datetime.now()
+    time_str = now.strftime('%Y%m%d_%H%M%S')
     output_name = 'output/{}_{}.png'.format(args['model_name'],time_str)
     plt.figure(figsize=(20, 4))
     n = args["samples"]
     for i in range(n):
-        # display original
         original = (testX[i].reshape(28, 28) * 255).astype("uint8")
         recon = (decoded[i].reshape(28, 28) * 255).astype("uint8")
 
@@ -170,6 +133,6 @@ if __name__ == '__main__':
         #     plt.savefig(savename)
         plt.savefig(output_name)
 
+    logging.info(str(code))
+
     logging.info(" Done!")
-
-
