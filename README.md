@@ -28,13 +28,18 @@ training_plot   : training loss and accuracy
 python train_fan_autoencoder.py  -s 10 -m fc_256_128_16 -d 256 128 -c 16
 
 * 784 - [256,128] - 16 - [ 128, 256 ] - 784 
-python train_fan_autoencoder.py  -s 10 -m fc_256_128_2.png -d 256 128 -c 2 -e 25
+python train_fan_autoencoder.py  -s 10 -m fc_256_128_2 -d 256 128 -c 2 -e 25
 
 * 784 - [1000,500,250] - 2 - [250,500,1000] - 784 
 python train_fan_autoencoder.py  -s 10  -m fc_1000_500_250_2 -d 1000 500 250 -c 2 -e 100
 
+* rnn auto-encoder
+python train_fan_autoencoder.py  -t rnn -s 10  -m rnn_64_32_2 -d 64 32 -c 2 -e 100 -b 128
+
 ## restore_training.py 参数
 python restore_training.py  -s 10  -m fc_1000_500_250_2 -d 1000 500 250 -c 2 -e 100
+
+python restore_training.py  -s 10 -m fc_256_128_16 -d 256 128 -c 16 -e 20
 
 # 参考
 Autoencoders with Keras, TensorFlow, and Deep Learning

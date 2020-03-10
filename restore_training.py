@@ -97,28 +97,35 @@ if __name__ == '__main__':
     if not os.path.exists(tb_log_path):
         os.makedirs(tb_log_path)
 
-
+    now = datetime.datetime.now()
+    time_str = now.strftime('%Y%m%d_%H%M%S')
 
     opt = Adam(lr=1e-3)
     (encoder, decoder, autoencoder) = FanAutoencoder.build(28, 28, 1, args['n_dims'], args['code_dim'])
     autoencoder.compile(loss="mse", optimizer=opt)
 
     # load the latest ckpt
-    save_dir = os.path.join(os.getcwd(), ckpts_path)
-    # latest = tf.train.latest_checkpoint(save_dir)
-    logging.info(save_dir)
-    # logging.info(latest)
-    latest = '/home/algo/code/gitrepo/pylib/ml-playground/ckpts/fc_1000_500_250_2/model_94.hdf5'
+    # save_dir = os.path.join(os.getcwd(), ckpts_path)
+    latest = tf.train.latest_checkpoint(ckpts_path)
+    logging.info(ckpts_path)
+    logging.info(latest)
+    # latest = '/home/algo/code/gitrepo/pylib/ml-playground/ckpts/fc_1000_500_250_2/model_94.hdf5'
     autoencoder.load_weights(latest)
 
     # loss,acc = autoencoder.evaluate(testX, testX) # may be wrong
     # logging.info("Restored model, accuracy: {:5.2f}%".format(100 * acc))
 
+    # save_dir = os.path.join(os.getcwd(), ckpts_path)
+    # filepath = "model_{epoch:02d}.hdf5"
+
+    checkpoint_path = ckpts_path + "/model_{epoch:04d}.ckpt"
+
     callbacks = [
         ModelCheckpoint(
-            filepath=ckpts_path + '/fc_ae_{epoch}',
-            save_best_only=True,
-            monitor='val_loss',
+            filepath= checkpoint_path,
+            save_weights_only=True,
+            # monitor='val_loss',
+            period=5,
             verbose=1),
         TensorBoard(log_dir=tb_log_path)
     ]
@@ -133,8 +140,7 @@ if __name__ == '__main__':
         batch_size=BS,
         callbacks=callbacks)
 
-    now = datetime.datetime.now()
-    time_str = now.strftime('%Y%m%d_%H%M%S')
+
     plot_name = 'training_plot/{}_{}.png'.format(args['model_name'],time_str)
     training_plot(H, plot_name, EPOCHS)
 

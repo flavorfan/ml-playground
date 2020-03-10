@@ -18,6 +18,7 @@ import argparse
 # import cv2
 
 from autoencoder.fan_autoencoder import FanAutoencoder
+from autoencoder.fan_cnn_autoencoder import FanCnnAutoencoder
 
 # log
 from utils import root_logger
@@ -28,6 +29,11 @@ def arg_parse():
     # global args
     # construct the argument parse and parse the arguments
     ap = argparse.ArgumentParser()
+
+    # select model type : fc, cnn,
+    ap.add_argument("-t", "--model_type", type=str, default="fc",
+                    help="# select model_type from fc,rnn,and so on  ")
+
     ap.add_argument("-s", "--samples", type=int, default=8,
                     help="# number of samples to visualize when decoding")
     # ap.add_argument("-o", "--output", type=str, default="output.png",
@@ -39,6 +45,7 @@ def arg_parse():
                     help="n_dim of layers")
     ap.add_argument("-c", "--code_dim", type=int, default=16,
                     help="# code_dim - latent layer size ")
+
     # train param
     ap.add_argument("-e", "--epochs", type=int, default=25,
                     help="# epochs  ")
@@ -94,7 +101,14 @@ testX = testX.astype("float32") / 255.0
 
 
 logging.info(" building autoencoder...")
-(encoder, decoder, autoencoder) = FanAutoencoder.build(28, 28, 1, args['n_dims'], args['code_dim'])
+if args['model_type'] == 'rnn':
+    (encoder, decoder, autoencoder) = FanCnnAutoencoder.build(28, 28, 1, args['n_dims'], args['code_dim'])
+elif args['model_type'] == 'fc':
+    (encoder, decoder, autoencoder) = FanAutoencoder.build(28, 28, 1, args['n_dims'], args['code_dim'])
+else: #
+    (encoder, decoder, autoencoder) = FanAutoencoder.build(28, 28, 1, args['n_dims'], args['code_dim'])
+
+# is to compile in the wrapper class
 opt = Adam(lr=1e-3)
 autoencoder.compile(loss="mse", optimizer=opt)
 
@@ -109,14 +123,15 @@ tb_log_path = 'logs/' + args['model_name']
 if not os.path.exists(tb_log_path):
     os.makedirs(tb_log_path)
 
-save_dir = os.path.join(os.getcwd(), ckpts_path)
-filepath="model_{epoch:02d}.hdf5"
+# checkpoint_dir = os.path.join(os.getcwd(), ckpts_path)
+checkpoint_path= ckpts_path + "/model_{epoch:04d}.ckpt"
 
 callbacks = [
     ModelCheckpoint(
-        filepath= os.path.join(save_dir, filepath),
-        save_best_only=True,
-        monitor='val_loss',
+        filepath= checkpoint_path,
+        save_weights_only=True,
+        # monitor='val_loss',
+        period=5,
         verbose=1),
     TensorBoard(log_dir=tb_log_path)
 ]
