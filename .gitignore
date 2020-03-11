@@ -5,3 +5,6 @@
 /autoencoder/tmp/
 
 *.pyc
+/tf_text/.ipynb_checkpoints/
+/tf_text/training_checkpoints/
+/tf_text/._nmt_with_attention.ipynb
