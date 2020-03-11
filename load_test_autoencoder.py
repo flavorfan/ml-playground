@@ -102,8 +102,6 @@ if __name__ == '__main__':
     # data
     trainX, testX = load_mnist_data()
 
-
-
     code = encoder.predict(testX)
     logging.info(str(code[0]))
     decoded = decoder.predict(code)
