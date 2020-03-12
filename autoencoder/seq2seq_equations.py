@@ -114,21 +114,27 @@ class Seq2SeqModel(object):
                                                    recurrent_initializer='glorot_uniform')(encoder_embedding)
 
         # build the encoder model
-        encoder = Model(encoder_inputs, (encoder_outputs, final_encoder_state), name="encoder")
-        print(encoder.summary())
+        # encoder = Model(encoder_inputs, (encoder_outputs, final_encoder_state), name="encoder")
+        # print(encoder.summary())
+
+        tf.keras.layers.RepeatVector()(encoder_outputs)
 
         # decoder
         decoder_inputs = Input(shape=(batch_size, None))
         decoder_embeddings = Embedding(vocab_size,embeddings_size)(decoder_inputs)
-        decoder_outputs, decoder_state = GRU(hidden_size,
+        decoder_gru_outputs, decoder_state = GRU(hidden_size,
                                                    return_sequences=True,
                                                    return_state=True,
                                                    recurrent_initializer='glorot_uniform')(decoder_embeddings)
 
-        decoder = Model(decoder_inputs,(decoder_outputs, decoder_state), name='decoder')
-        print(decoder.summary())
+        decoder_output = tf.keras.layers.TimeDistributed(Dense(vocab_size, activation='softmax'))(decoder_gru_outputs)
+        # decoder = Model(decoder_inputs,(decoder_outputs, decoder_state), name='decoder')
+        # print(decoder.summary())
 
-        autoencoder = Model()
+        autoencoder = Model(encoder_inputs,decoder_output)
+
+        print(autoencoder.summary())
+        return autoencoder
 
 
 
