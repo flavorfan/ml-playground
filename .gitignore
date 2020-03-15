@@ -8,3 +8,7 @@
 /tf_text/.ipynb_checkpoints/
 /tf_text/training_checkpoints/
 /tf_text/._nmt_with_attention.ipynb
+/visualization/.ipynb_checkpoints/
+/tf_dataset/.ipynb_checkpoints/
+/tf_text/meta.tsv
+/tf_text/vecs.tsv
