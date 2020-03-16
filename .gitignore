@@ -5,10 +5,17 @@
 /autoencoder/tmp/
 
 *.pyc
-/tf_text/.ipynb_checkpoints/
-/tf_text/training_checkpoints/
-/tf_text/._nmt_with_attention.ipynb
+/tf_tutorial/.ipynb_checkpoints/
+/tf_tutorial/training_checkpoints/
+/tf_tutorial/._nmt_with_attention.ipynb
 /visualization/.ipynb_checkpoints/
 /tf_dataset/.ipynb_checkpoints/
-/tf_text/meta.tsv
-/tf_text/vecs.tsv
+/tf_tutorial/meta.tsv
+/tf_tutorial/vecs.tsv
+/tf_tutorial/ckpt/
+/tf_tutorial/path/to/model_dir/
+/tf_tutorial/my_model/
+/tf_tutorial/tb/
+/tf_tutorial/weights/
+/tf_tutorial/weights_temp_544a66915fed46558e212ad081ede9ec/
+/tf_tutorial/checkpoint
