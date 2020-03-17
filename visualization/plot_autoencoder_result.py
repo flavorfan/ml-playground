@@ -2,6 +2,10 @@ import tensorflow as tf
 import matplotlib.pyplot as plt
 import numpy as np
 
+import plotly.express as px
+
+fig = px.scatter_geo()
+
 def training_plot(H,filename, epochs):
     # construct a plot that plots and saves the training history
     N = np.arange(0, epochs)
