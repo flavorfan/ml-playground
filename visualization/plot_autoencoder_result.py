@@ -4,7 +4,6 @@ import numpy as np
 
 import plotly.express as px
 
-fig = px.scatter_geo()
 
 def training_plot(H,filename, epochs):
     # construct a plot that plots and saves the training history
@@ -39,3 +38,4 @@ def plot_model_result(input_imgs, decoded_imgs, n, savename=None):
     if  savename:
         plt.savefig(savename)
     plt.show()
+

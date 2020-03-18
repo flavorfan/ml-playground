@@ -129,16 +129,31 @@ class FanVariationalAutoEncoder():
 
         # vae.add_loss(vae_loss)
 
-        mse = tf.keras.losses.MeanSquaredError()
-        mse_loss = mse(original_inputs, outputs)
+        # mse = tf.keras.losses.MeanSquaredError()
+        # bce = tf.keras.losses.BinaryCrossentropy(from_logits=True)
+        # recon_loss = bce(original_inputs, outputs)
+        #
+        # kl_loss = - 0.5 * tf.reduce_mean(
+        #     z_log_var - tf.square(z_mean) - tf.exp(z_log_var) + 1)
+        # vae_loss = recon_loss + kl_loss
+        # vae.add_loss(vae_loss)
 
-        kl_loss = - 0.5 * tf.reduce_mean(
-            z_log_var - tf.square(z_mean) - tf.exp(z_log_var) + 1)
+        # Define VAE Loss
+        # @tf.function
+        def vae_loss(x_reconstructed, x_true):
+            # Reconstruction loss
+            encode_decode_loss = x_true * tf.math.log(1e-10 + x_reconstructed) + (1 - x_true) * tf.math.log(1e-10 + 1 - x_reconstructed)
+            encode_decode_loss = -tf.reduce_sum(encode_decode_loss, 1)
+            # KL Divergence loss
+            kl_div_loss = 1 + z_log_var - tf.square(z_mean) - tf.exp(z_log_var)
+            kl_div_loss = -0.5 * tf.reduce_sum(kl_div_loss, 1)
+            return tf.reduce_mean(encode_decode_loss + kl_div_loss)
 
-        vae_loss = mse_loss + kl_loss
-        vae.add_loss(vae_loss)
+        loss_op = vae_loss(original_inputs, outputs)
 
-        optimizer = tf.keras.optimizers.Adam(learning_rate=1e-3)
+        vae.add_loss(loss_op)
+
+        optimizer = tf.keras.optimizers.Adam(learning_rate=1e-4)
         vae.compile(optimizer)
 
         return encoder, decoder, vae
