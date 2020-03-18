@@ -47,6 +47,9 @@ python train_denoising_autoencoder.py  -t rnn -s 10  -m dn_rnn_64_32_16 -d 64 32
 ## load_test_autoencoder.py
 load_test_autoencoder.py -t rnn -s 10 -m rnn_64_32_2 -d 64 32 -c 2 
 
+## load_test_autoencoder.py
+train_fan_autoencoder.py -t vae -s 10 -m vae  
+
 
 # 参考
 Autoencoders with Keras, TensorFlow, and Deep Learning

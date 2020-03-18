@@ -17,7 +17,7 @@ import argparse
 
 # import cv2
 
-from autoencoder.fan_autoencoder import FanAutoencoder
+from autoencoder.fan_autoencoder import FanAutoencoder, FanVariationalAutoEncoder
 from autoencoder.fan_cnn_autoencoder import FanCnnAutoencoder
 
 # log
@@ -32,7 +32,7 @@ def arg_parse():
 
     # select model type : fc, cnn,
     ap.add_argument("-t", "--model_type", type=str, default="fc",
-                    help="# select model_type from fc,rnn,and so on  ")
+                    help="# select model_type from fc,rnn,vae and so on  ")
 
     ap.add_argument("-s", "--samples", type=int, default=8,
                     help="# number of samples to visualize when decoding")
@@ -105,12 +105,14 @@ if args['model_type'] == 'rnn':
     (encoder, decoder, autoencoder) = FanCnnAutoencoder.build(28, 28, 1, args['n_dims'], args['code_dim'])
 elif args['model_type'] == 'fc':
     (encoder, decoder, autoencoder) = FanAutoencoder.build(28, 28, 1, args['n_dims'], args['code_dim'])
+elif args['model_type'] == 'vae':
+    (encoder, decoder, autoencoder) = FanVariationalAutoEncoder.build(is_compiled=True)
 else: #
     (encoder, decoder, autoencoder) = FanAutoencoder.build(28, 28, 1, args['n_dims'], args['code_dim'])
 
 # is to compile in the wrapper class
-opt = Adam(lr=1e-3)
-autoencoder.compile(loss="mse", optimizer=opt)
+# opt = Adam(lr=1e-3)
+# autoencoder.compile(loss="mse", optimizer=opt)
 
 
 
@@ -140,11 +142,13 @@ callbacks = [
 # initialize the number of epochs to train for and batch size
 EPOCHS = args['epochs'] #25
 BS =  args['batch_size'] #32
+
+
 H = autoencoder.fit(
-	trainX, trainX,
-	validation_data=(testX, testX),
-	epochs=EPOCHS,
-	batch_size=BS,
+    trainX, trainX,
+    validation_data=(testX, testX),
+    epochs=EPOCHS,
+    batch_size=BS,
     callbacks=callbacks)
 
 
@@ -166,6 +170,7 @@ outputs = None
 output_name = 'output/{}_{}.png'.format(args['model_name'],time_str)
 plt.figure(figsize=(20, 4))
 n = args["samples"]
+
 for i in range(n):
     # display original
     ax = plt.subplot(2, n, i + 1)

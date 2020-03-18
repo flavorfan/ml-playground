@@ -5,12 +5,21 @@ import matplotlib.pyplot as plt
 from tensorflow.keras.layers import Input, Dense, Flatten
 from tensorflow.keras.layers import Reshape
 from tensorflow.keras.models import Model
+from tensorflow.keras.optimizers import Adam
+
+from tensorflow.keras import layers
+from tensorflow.keras import backend as K
+
+# def loss(y_true, y_pred):
+#     ce = tf.losses.mse
+#     ce = 0.5 *
+#     return ce
+
 
 class FanAutoencoder:
     @staticmethod
-    def build(width,height,depth, n_dims=[256,128], code_dim=16):
+    def build(width, height, depth, n_dims=[256,128], code_dim=16, is_compiled=True):
         input_shape = (width, height, depth)
-
         # define the input to the encoder
         inputs = Input(shape= input_shape)
         x = Flatten()(inputs)
@@ -43,4 +52,94 @@ class FanAutoencoder:
         autoencoder = Model(inputs, decoder(encoder(inputs)),name = 'autoencoder')
         print(autoencoder.summary())
 
+        if is_compiled:
+            opt = Adam(lr=1e-3)
+            autoencoder.compile(loss="mse", optimizer=opt)
+
         return (encoder, decoder, autoencoder)
+
+class Sampling(layers.Layer):
+  """Uses (z_mean, z_log_var) to sample z, the vector encoding a digit."""
+
+  def call(self, inputs):
+    z_mean, z_log_var = inputs
+    batch = tf.shape(z_mean)[0]
+    dim = tf.shape(z_mean)[1]
+    epsilon = tf.keras.backend.random_normal(shape=(batch, dim))
+    return z_mean + tf.exp(0.5 * z_log_var) * epsilon
+
+
+class FanVariationalAutoEncoder():
+    @staticmethod
+    def build(width=28, height=28, depth=1,intermediate_dim = 256,latent_dim = 32, is_compiled=True):
+        # Define encoder model.
+        # original_inputs = tf.keras.Input(shape=(original_dim,), name='encoder_input')
+        # x = layers.Dense(intermediate_dim, activation='relu')(original_inputs)
+        input_shape = (width, height, depth)
+        original_inputs = tf.keras.Input(shape=input_shape, name='encoder_input')
+        x = Flatten()(original_inputs)
+
+        x = layers.Dense(intermediate_dim, activation='relu')(x)
+        z_mean = layers.Dense(latent_dim, name='z_mean')(x)
+        z_log_var = layers.Dense(latent_dim, name='z_log_var')(x)
+        z = Sampling()((z_mean, z_log_var))
+        encoder = tf.keras.Model(inputs=original_inputs, outputs=[z_mean,z_log_var,z], name='encoder')
+
+
+        # Define decoder model.
+        latent_inputs = tf.keras.Input(shape=(latent_dim,), name='z_sampling')
+        x = layers.Dense(intermediate_dim, activation='relu')(latent_inputs)
+        x = layers.Dense(width * height * depth, activation='sigmoid')(x)
+        decoder_outputs = Reshape((width, height, depth))(x)
+        decoder = tf.keras.Model(inputs=latent_inputs, outputs=decoder_outputs, name='decoder')
+
+        # Define VAE model.
+
+        z_mean,z_log_var,z = encoder(original_inputs)
+        outputs = decoder(z)
+
+        # outputs = outputs.Reshape((width, height, depth))(x)
+        vae = tf.keras.Model(inputs=original_inputs, outputs=outputs, name='vae')
+
+        # Add KL divergence regularization loss.
+        # kl_loss = - 0.5 * tf.reduce_mean(
+        #     z_log_var - tf.square(z_mean) - tf.exp(z_log_var) + 1)
+        #
+        # vae.add_loss(kl_loss)
+
+        # # Calculate custom loss
+        # xent_loss = original_dim * metrics.binary_crossentropy(x, x_decoded_mean)
+        # kl_loss = - 0.5 * K.sum(1 + z_log_var - K.square(z_mean) - K.exp(z_log_var), axis=-1)
+        # vae_loss = K.mean(xent_loss + kl_loss)
+        #
+        # # Compile
+        # vae.add_loss(vae_loss)
+        # vae.compile(optimizer='rmsprop')
+
+
+
+        # Train.
+        # if is_compiled:
+
+        # xent_loss = K.sum(K.binary_crossentropy(original_inputs, outputs), axis=-1)
+        # kl_loss = - 0.5 * K.sum(
+        #     z_log_var - tf.square(z_mean) - tf.exp(z_log_var) + 1)
+        # vae_loss = K.mean(xent_loss + kl_loss)
+
+
+        # vae.add_loss(vae_loss)
+
+        mse = tf.keras.losses.MeanSquaredError()
+        mse_loss = mse(original_inputs, outputs)
+
+        kl_loss = - 0.5 * tf.reduce_mean(
+            z_log_var - tf.square(z_mean) - tf.exp(z_log_var) + 1)
+
+        vae_loss = mse_loss + kl_loss
+        vae.add_loss(vae_loss)
+
+        optimizer = tf.keras.optimizers.Adam(learning_rate=1e-3)
+        vae.compile(optimizer)
+
+        return encoder, decoder, vae
+

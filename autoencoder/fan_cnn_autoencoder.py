@@ -14,13 +14,20 @@ from tensorflow.keras.layers import Flatten
 from tensorflow.keras.layers import Dense
 from tensorflow.keras.layers import Reshape
 from tensorflow.keras.layers import Input
+from tensorflow.keras.layers import MaxPooling2D, UpSampling2D, GlobalMaxPooling2D
+
 from tensorflow.keras.models import Model
 from tensorflow.keras import backend as K
+from tensorflow.keras.optimizers import Adam
 import numpy as np
+
+
+
+
 
 class FanCnnAutoencoder:
     @staticmethod
-    def build(width, height, depth, filters=(32, 64), latentDim=16):
+    def build(width, height, depth, filters=(32, 64), latentDim=16, is_compiled=True):
         inputShape = (height, width, depth)
         chanDim = -1
 
@@ -71,4 +78,9 @@ class FanCnnAutoencoder:
             name="autoencoder")
 
         # return a 3-tuple of the encoder, decoder, and autoencoder
+        if is_compiled:
+            opt = Adam(lr=1e-3)
+            autoencoder.compile(loss="mse", optimizer=opt)
+
         return (encoder, decoder, autoencoder)
+
