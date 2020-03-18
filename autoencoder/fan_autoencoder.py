@@ -99,7 +99,7 @@ class FanVariationalAutoEncoder():
         outputs = decoder(z)
 
         # outputs = outputs.Reshape((width, height, depth))(x)
-        vae = tf.keras.Model(inputs=original_inputs, outputs=outputs, name='vae')
+        vae = tf.keras.Model(inputs=original_inputs, outputs=[outputs,z_mean, z_log_var], name='vae')
 
         # Add KL divergence regularization loss.
         # kl_loss = - 0.5 * tf.reduce_mean(
@@ -148,13 +148,11 @@ class FanVariationalAutoEncoder():
             kl_div_loss = 1 + z_log_var - tf.square(z_mean) - tf.exp(z_log_var)
             kl_div_loss = -0.5 * tf.reduce_sum(kl_div_loss, 1)
             return tf.reduce_mean(encode_decode_loss + kl_div_loss)
-
-        loss_op = vae_loss(original_inputs, outputs)
-
-        vae.add_loss(loss_op)
-
-        optimizer = tf.keras.optimizers.Adam(learning_rate=1e-4)
-        vae.compile(optimizer)
+        if is_compiled:
+            loss_op = vae_loss(original_inputs, outputs)
+            vae.add_loss(loss_op)
+            optimizer = tf.keras.optimizers.Adam(learning_rate=1e-4)
+            vae.compile(optimizer)
 
         return encoder, decoder, vae
 
