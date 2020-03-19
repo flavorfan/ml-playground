@@ -8,12 +8,15 @@ import tensorflow as tf
 from tensorflow.keras.callbacks import ModelCheckpoint, TensorBoard
 
 import numpy as np
+from    PIL import Image
+
 import matplotlib.pyplot as plt
 import argparse
 import os
 import datetime
 from utils import root_logger
 import logging
+
 
 from autoencoder.fan_autoencoder import FanVariationalAutoEncoder
 from visualization import training_plot
@@ -55,9 +58,9 @@ def arg_parse():
     #                 help="# code_dim - latent layer size ")
 
     # train param
-    ap.add_argument("-e", "--epochs", type=int, default=25,
+    ap.add_argument("-e", "--epochs", type=int, default=100,
                     help="# epochs  ")
-    ap.add_argument("-b", "--batch_size", type=int, default=128,
+    ap.add_argument("-b", "--batch_size", type=int, default=100,
                     help="# epochs  ")
 
     # model instance name
@@ -137,8 +140,10 @@ if __name__ == '__main__':
     val_acc_metric   = tf.keras.metrics.SparseCategoricalAccuracy()
 
     # autoencoder.summary()
+    # image grid
+    new_im = Image.new('L', (280, 280))
 
-
+    num_batches = 60000 // batch_size
     # loss_history = []
     for epoch in range(epochs):
         logging.info('start of epoch %d' %(epoch,))
@@ -155,18 +160,47 @@ if __name__ == '__main__':
                 kl_loss = tf.reduce_mean(kl_loss)
 
                 loss_value = tf.reduce_mean(reconstruction_loss) + kl_loss
-
             # loss_history.append(loss_value.numpy().mean())
             grads = tape.gradient(loss_value, autoencoder.trainable_weights)
+            # mark ?
+            for g in grads:
+                tf.clip_by_norm(g, 15)
             optimizer.apply_gradients(zip(grads, autoencoder.trainable_weights))
-            if step % 200 == 0:
-                logging.info('Training loss (for one batch) at step %s: %s' % (step, float(loss_value)))
-                logging.info('Seen so far: %s sample' % ((step+1) * batch_size))
+            if (step + 1) % 50 == 0:
+                # logging.info('Training loss (for one batch) at step %s: %s' % (step, float(loss_value)))
+                # logging.info('Seen so far: %s sample' % ((step+1) * batch_size))
+                logging.info("Epoch[{}/{}], Step [{}/{}], loss: {:.4f} Reconst Loss: {:.4f}, KL Div: {:.4f}"
+                      .format(epoch + 1, epochs, step + 1, num_batches, float(loss_value),float(reconstruction_loss), float(kl_loss)))
 
-            # train_acc =
+        out_logits, _, _ = autoencoder(x_batch_train[:batch_size // 2])
+        out = tf.nn.sigmoid(out_logits)  # out is just the logits, use sigmoid
+        out = tf.reshape(out, [-1, 28, 28]).numpy() * 255
 
-    now = datetime.datetime.now()
-    time_str = now.strftime('%Y%m%d_%H%M%S')
+        x = tf.reshape(x_batch_train[:batch_size // 2], [-1, 28, 28])
+
+        x_concat = tf.concat([x, out], axis=0).numpy() * 255.
+        x_concat = x_concat.astype(np.uint8)
+
+        index = 0
+        for i in range(0, 280, 28):
+            for j in range(0, 280, 28):
+                im = x_concat[index]
+                im = Image.fromarray(im, mode='L')
+                new_im.paste(im, (i, j))
+                index += 1
+
+        new_im.save('output/images2/vae_reconstructed_epoch_%d.png' % (epoch + 1))
+        # plt.imshow(np.asarray(new_im))
+        # plt.show()
+        logging.info('New images saved !')
+
+
+
+
+
+
+
+
 
     # plot_name = 'training_plot/{}_{}.png'.format(args['model_name'], time_str)
     # training_plot(loss_history, plot_name,epochs)
@@ -178,50 +212,51 @@ if __name__ == '__main__':
     # outputs = None
 
     # loop over our number of output
-
-    ((trainX, _), (testX, _)) = tf.keras.datasets.mnist.load_data()
-
-    # add a channel dimension to every image in the dataset, then scale
-    # the pixel intensities to the range [0, 1]
-    trainX = np.expand_dims(trainX, axis=-1)  # (sample,w,h) -> (sample, w, h, d)
-    testX = np.expand_dims(testX, axis=-1)
-
-    trainX = trainX.astype("float32") / 255.0
-    testX = testX.astype("float32") / 255.0
-
-
-
-    output_name = 'output/{}_{}.png'.format(args['model_name'], time_str)
-    plt.figure(figsize=(20, 4))
+    #
+    # ((trainX, _), (testX, _)) = tf.keras.datasets.mnist.load_data()
+    #
+    # # add a channel dimension to every image in the dataset, then scale
+    # # the pixel intensities to the range [0, 1]
+    # trainX = np.expand_dims(trainX, axis=-1)  # (sample,w,h) -> (sample, w, h, d)
+    # testX = np.expand_dims(testX, axis=-1)
+    #
+    # trainX = trainX.astype("float32") / 255.0
+    # testX = testX.astype("float32") / 255.0
+    #
+    #
+    #
+    # output_name = 'output/{}_{}.png'.format(args['model_name'], time_str)
+    # plt.figure(figsize=(20, 4))
 
     # decoded = autoencoder.predict(testX)
     # logging.info(str(type(decoded)))
 
-    for i in range(n):
-        # display original
-        ax = plt.subplot(2, n, i + 1)
-        input_img = np.expand_dims(testX[i],axis=0)
+    # for i in range(n):
+    #     # display original
+    #     ax = plt.subplot(2, n, i + 1)
+    #
+    #     input_img = np.expand_dims(testX[i],axis=0)
+    #
+    #     decoded , _ , _ = autoencoder.predict(input_img)
+    #     original = (testX[i].reshape(28, 28) * 255).astype("uint8")
+    #     recon =  (decoded.reshape(28, 28) * 255).astype("uint8")
+    #
+    #     plt.imshow(original)
+    #     plt.gray()
+    #     ax.get_xaxis().set_visible(False)
+    #     ax.get_yaxis().set_visible(False)
+    #
+    #     # display reconstruction
+    #     ax = plt.subplot(2, n, i + 1 + n)
+    #     plt.imshow(recon)
+    #     plt.gray()
+    #     ax.get_xaxis().set_visible(False)
+    #     ax.get_yaxis().set_visible(False)
+    #     # if savename:
+    #     #     plt.savefig(savename)
+    #     plt.savefig(output_name)
 
-        decoded , _ , _ = autoencoder.predict(input_img)
-        original = (testX[i].reshape(28, 28) * 255).astype("uint8")
-        recon =  (decoded.reshape(28, 28) * 255).astype("uint8")
-
-        plt.imshow(original)
-        plt.gray()
-        ax.get_xaxis().set_visible(False)
-        ax.get_yaxis().set_visible(False)
-
-        # display reconstruction
-        ax = plt.subplot(2, n, i + 1 + n)
-        plt.imshow(recon)
-        plt.gray()
-        ax.get_xaxis().set_visible(False)
-        ax.get_yaxis().set_visible(False)
-        # if savename:
-        #     plt.savefig(savename)
-        plt.savefig(output_name)
-
-    logging.info(" Done!")
+    # logging.info(" Done!")
     # output_name = 'output/{}_{}.png'.format(args['model_name'], time_str)
     # plt.figure(figsize=(20, 4))
     # n = args["samples"]
