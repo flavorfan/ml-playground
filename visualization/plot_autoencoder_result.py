@@ -1,6 +1,7 @@
 import tensorflow as tf
 import matplotlib.pyplot as plt
 import numpy as np
+from PIL import Image
 
 import plotly.express as px
 
@@ -39,3 +40,16 @@ def plot_model_result(input_imgs, decoded_imgs, n, savename=None):
         plt.savefig(savename)
     plt.show()
 
+# 10 x 10 grid img
+def grid_img(x_concat, filename):
+    index = 0
+    new_im = Image.new('L', (280, 280))
+    for i in range(0, 280, 28):
+        for j in range(0, 280, 28):
+            im = x_concat[index]
+            im = Image.fromarray(im, mode='L')
+            new_im.paste(im, (i, j))
+            index += 1
+    new_im.save(filename)
+    # plt.imshow(np.asarray(new_im))
+    # plt.show()

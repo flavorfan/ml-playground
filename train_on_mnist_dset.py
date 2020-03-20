@@ -7,6 +7,7 @@
 import tensorflow as tf
 from tensorflow.keras.callbacks import ModelCheckpoint, TensorBoard
 
+
 import numpy as np
 from    PIL import Image
 
@@ -19,23 +20,25 @@ import logging
 
 
 from autoencoder.fan_autoencoder import FanVariationalAutoEncoder
-from visualization import training_plot
+from visualization import training_plot, grid_img
 
 def load_mnist_dataset(batch_size = 64):
-    ((trainX, _), (testX, _)) = tf.keras.datasets.mnist.load_data()
+    (x_train, y_train_), (x_test, y_test_) = tf.keras.datasets.mnist.load_data()
 
     # add a channel dimension to every image in the dataset, then scale
     # the pixel intensities to the range [0, 1]
-    trainX = np.expand_dims(trainX, axis=-1)  # (sample,w,h) -> (sample, w, h, d)
-    testX = np.expand_dims(testX, axis=-1)
+    # trainX = np.expand_dims(trainX, axis=-1)  # (sample,w,h) -> (sample, w, h, d)
+    # testX = np.expand_dims(testX, axis=-1)
 
-    trainX = trainX.astype("float32") / 255.0
-    testX = testX.astype("float32") / 255.0
+    x_train = x_train.astype('float32') / 255.
+    x_test = x_test.astype('float32') / 255.
+    x_train = x_train.reshape((len(x_train), np.prod(x_train.shape[1:])))
+    x_test = x_test.reshape((len(x_test), np.prod(x_test.shape[1:])))
 
-    train_data = tf.data.Dataset.from_tensor_slices((trainX, trainX))
+    train_data = tf.data.Dataset.from_tensor_slices((x_train, x_train))
     train_data = train_data.shuffle(5000).batch(batch_size)
 
-    test_data = tf.data.Dataset.from_tensor_slices((testX, testX))
+    test_data = tf.data.Dataset.from_tensor_slices((x_test, x_test))
     test_data = test_data.shuffle(5000).batch(batch_size)
 
     return train_data, test_data
@@ -118,6 +121,21 @@ def train():
     training_plot_and_savemodel()
 
 
+# 10 x 10 grid img
+# def grid_img(x_concat, filename):
+#     index = 0
+#     new_im = Image.new('L', (280, 280))
+#     for i in range(0, 280, 28):
+#         for j in range(0, 280, 28):
+#             im = x_concat[index]
+#             im = Image.fromarray(im, mode='L')
+#             new_im.paste(im, (i, j))
+#             index += 1
+#     new_im.save(filename)
+#     plt.imshow(np.asarray(new_im))
+#     plt.show()
+
+
 if __name__ == '__main__':
     args = arg_parse()
     root_logger('./logs/log.txt')
@@ -127,44 +145,53 @@ if __name__ == '__main__':
     epochs = args['epochs']
     n = args['samples']
 
+    #
     train_data, test_data = load_mnist_dataset(batch_size)
-    encoder, decoder, autoencoder = FanVariationalAutoEncoder.build(is_compiled=True)
+    encoder, decoder, autoencoder = FanVariationalAutoEncoder.build(is_compiled=False)
 
     # train()
 
-    optimizer = tf.keras.optimizers.Adam(learning_rate=1e-4)
+    optimizer = tf.keras.optimizers.Adam(learning_rate=1e-3)
 
-    loss_fn = tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True)
+    # loss_fn = tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True)
     # Prepare the metrics.
-    train_acc_metric = tf.keras.metrics.SparseCategoricalAccuracy()
-    val_acc_metric   = tf.keras.metrics.SparseCategoricalAccuracy()
+    # train_acc_metric = tf.keras.metrics.SparseCategoricalAccuracy()
+    # val_acc_metric   = tf.keras.metrics.SparseCategoricalAccuracy()
 
-    # autoencoder.summary()
+    autoencoder.summary()
+    # tf.keras.utils.plot_model(autoencoder, 'fan_vae.png', show_shapes=True)
     # image grid
-    new_im = Image.new('L', (280, 280))
+
 
     num_batches = 60000 // batch_size
     # loss_history = []
+    prt_one = 1
     for epoch in range(epochs):
         logging.info('start of epoch %d' %(epoch,))
-
         for step, (x_batch_train, y_batch_train) in enumerate(train_data):
             with tf.GradientTape() as tape:
                 logits, z_mean, z_log_var = autoencoder(x_batch_train, training = True)
                 # compute the loss value for this minbatch
-
                 reconstruction_loss = tf.nn.sigmoid_cross_entropy_with_logits(labels=y_batch_train, logits = logits)
+                if prt_one:
+                    logging.info(repr(reconstruction_loss))
                 reconstruction_loss = tf.reduce_sum(reconstruction_loss) / batch_size
-
+                if prt_one:
+                    logging.info(repr(reconstruction_loss))
                 kl_loss = - 0.5 * tf.reduce_sum(1. + z_log_var - tf.square(z_mean) - tf.exp(z_log_var), axis= -1)
+                if prt_one:
+                    logging.info(repr(kl_loss))
                 kl_loss = tf.reduce_mean(kl_loss)
-
+                if prt_one:
+                    logging.info(repr(kl_loss))
+                prt_one = 0
                 loss_value = tf.reduce_mean(reconstruction_loss) + kl_loss
             # loss_history.append(loss_value.numpy().mean())
             grads = tape.gradient(loss_value, autoencoder.trainable_weights)
             # mark ?
-            for g in grads:
-                tf.clip_by_norm(g, 15)
+            # for g in grads:
+            #     tf.clip_by_norm(g, 15)
+
             optimizer.apply_gradients(zip(grads, autoencoder.trainable_weights))
             if (step + 1) % 50 == 0:
                 # logging.info('Training loss (for one batch) at step %s: %s' % (step, float(loss_value)))
@@ -181,17 +208,8 @@ if __name__ == '__main__':
         x_concat = tf.concat([x, out], axis=0).numpy() * 255.
         x_concat = x_concat.astype(np.uint8)
 
-        index = 0
-        for i in range(0, 280, 28):
-            for j in range(0, 280, 28):
-                im = x_concat[index]
-                im = Image.fromarray(im, mode='L')
-                new_im.paste(im, (i, j))
-                index += 1
+        grid_img(x_concat,'output/images2/vae_reconstructed_epoch_%d.png' % (epoch + 1))
 
-        new_im.save('output/images2/vae_reconstructed_epoch_%d.png' % (epoch + 1))
-        # plt.imshow(np.asarray(new_im))
-        # plt.show()
         logging.info('New images saved !')
 
 
