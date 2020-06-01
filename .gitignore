@@ -28,3 +28,6 @@ ckpts/*
 /tf_tutorial/weights_temp_544a66915fed46558e212ad081ede9ec/
 /tf_tutorial/checkpoint
 
+output/*
+*.gz 
+*.h5 
