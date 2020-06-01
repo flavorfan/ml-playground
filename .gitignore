@@ -6,10 +6,11 @@
 /autoencoder/tmp/
 
 */__pycache__
-*/checkpoint
-*/tmp
-*/ckpts
+*/checkpoint/
+*/tmp/
+*/ckpts/
 /autoencoder/tf_ckpts/
+/logs/
 
 *.pyc
 /tf_tutorial/.ipynb_checkpoints/
