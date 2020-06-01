@@ -11,6 +11,7 @@ tmp/*
 ckpts/*
 /autoencoder/tf_ckpts/
 /logs/
+ipynb_checkpoints/*
 
 *.pyc
 /tf_tutorial/.ipynb_checkpoints/
@@ -31,3 +32,4 @@ ckpts/*
 output/*
 *.gz 
 *.h5 
+training_plot/* 
