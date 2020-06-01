@@ -1,8 +1,15 @@
 /.idea/
+/.ipynb_checkpoints/
 /autoencoder/checkpoints/
 /autoencoder/log/
 /autoencoder/tf_ckpts/
 /autoencoder/tmp/
+
+*/__pycache__
+*/checkpoint
+*/tmp
+*/ckpts
+/autoencoder/tf_ckpts/
 
 *.pyc
 /tf_tutorial/.ipynb_checkpoints/
@@ -19,3 +26,4 @@
 /tf_tutorial/weights/
 /tf_tutorial/weights_temp_544a66915fed46558e212ad081ede9ec/
 /tf_tutorial/checkpoint
+
