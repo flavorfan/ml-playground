@@ -12,12 +12,9 @@ ckpts/*
 /autoencoder/tf_ckpts/
 /logs/
 .ipynb_checkpoints/*
-
 *.pyc
-/tf_tutorial/.ipynb_checkpoints/
 /tf_tutorial/training_checkpoints/
 /tf_tutorial/._nmt_with_attention.ipynb
-/visualization/.ipynb_checkpoints/
 /tf_dataset/.ipynb_checkpoints/
 /tf_tutorial/meta.tsv
 /tf_tutorial/vecs.tsv
