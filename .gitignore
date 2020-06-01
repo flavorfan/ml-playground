@@ -11,7 +11,8 @@ tmp/*
 ckpts/*
 /autoencoder/tf_ckpts/
 /logs/
-.ipynb_checkpoints/*
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
 *.pyc
 /tf_tutorial/training_checkpoints/
 /tf_tutorial/._nmt_with_attention.ipynb
