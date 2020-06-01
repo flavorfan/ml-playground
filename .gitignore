@@ -5,10 +5,10 @@
 /autoencoder/tf_ckpts/
 /autoencoder/tmp/
 
-*/__pycache__
-*/checkpoint/
-*/tmp/
-*/ckpts/
+__pycache__/*
+checkpoint/*
+tmp/*
+ckpts/*
 /autoencoder/tf_ckpts/
 /logs/
 
